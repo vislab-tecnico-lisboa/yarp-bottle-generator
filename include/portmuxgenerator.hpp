@@ -15,6 +15,9 @@ class PortMuxGenerator : public YarpCodeGenerator {
     string getPorts();
 
     string generateCode();
+
+    string extractPortFromString(int index);
+    
   private:
     int numPorts_;
     string ports_;
