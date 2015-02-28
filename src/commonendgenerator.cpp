@@ -15,7 +15,7 @@ CommonEndGenerator::~CommonEndGenerator() {
 string CommonEndGenerator::generateCode() {
   string code;
 
-  code = "  return 0;\n}";
+  code += "  return 0;\n}";
 
   return code;
 }

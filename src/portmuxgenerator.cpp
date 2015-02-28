@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "portmuxgenerator.hpp"
-#include <boost/lexical_cast.hpp>
 
 using namespace std;
 
@@ -35,5 +34,10 @@ string PortMuxGenerator::generateCode() {
   }
   code += "\n";
 
+  code += "  Port outputPort;\n";
+  code += "  outputPort.setWriteOnly();\n";
+  code += "  bool outputOk = outputPort.open(\"/generatedCode@/yarp/generatedCode\");\n";
+
+  code += "\n";
   return code;
 }

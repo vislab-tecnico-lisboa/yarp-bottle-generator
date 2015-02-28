@@ -1,6 +1,7 @@
 #ifndef PORTMUX_GENERATOR_HPP
 #define PORTMUX_GENERATOR_HPP
 #include "yarpcodegenerator.hpp"
+#include <boost/lexical_cast.hpp>
 
 using namespace std;
 
