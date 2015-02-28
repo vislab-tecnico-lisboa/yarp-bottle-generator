@@ -26,9 +26,12 @@ string PortMuxGenerator::generateCode() {
   string code;
 
   for(int i = 1; i <= numPorts_; i++) {
-    string buffPortInstCode;
-    buffPortInstCode = "  BufferedPort<Bottle> receiverBuff" + boost::lexical_cast<std::string>(i) + ";\n";
-    code += buffPortInstCode;
+    string buffPortCode;
+    string indexString = boost::lexical_cast<std::string>(i);
+    buffPortCode = "  BufferedPort<Bottle> receiverBuff" + indexString + ";\n";
+    code += buffPortCode;
+    buffPortCode = "  bool receiver" + indexString +  "Ok = receiverBuff" + indexString + ".open(\"/generatedCode/receiver" + indexString +"\");\n";
+    code += buffPortCode;
   }
   code += "\n";
 
