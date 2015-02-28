@@ -18,11 +18,15 @@ int main(int argc, char* argv[]) {
 
   boost::property_tree::ptree pt;
   boost::property_tree::ini_parser::read_ini(configPath, pt);
+  int numPorts = pt.get<int>("mux.num_ports");
   string ports = pt.get<string>("mux.ports");
-  string messageName = pt.get<string>("message.name");
 
   CommonBeginningGenerator commonBeginGen;
   string commonBeginCode = commonBeginGen.generateCode();
+  PortMuxGenerator portMuxGen(numPorts, ports);
+  string portMuxCode = portMuxGen.generateCode();
+  cout << "numPorts_: " << portMuxGen.getNumPorts() << endl;
+  cout << "ports_: " << portMuxGen.getPorts() << endl;
   CommonEndGenerator commonEndGen;
   string commonEndCode = commonEndGen.generateCode();
 
@@ -30,6 +34,7 @@ int main(int argc, char* argv[]) {
   generatedFile.open ("../results/generatedCode.cpp");
 
   generatedFile << commonBeginCode;
+  generatedFile << portMuxCode;
   generatedFile << commonEndCode;
 
   generatedFile.close();

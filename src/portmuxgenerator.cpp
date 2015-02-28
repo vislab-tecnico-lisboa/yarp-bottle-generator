@@ -1,17 +1,36 @@
 #include <iostream>
+#include <string>
 #include "portmuxgenerator.hpp"
+#include <boost/lexical_cast.hpp>
 
 using namespace std;
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(string ports) : YarpCodeGenerator::YarpCodeGenerator(ports) {
-    cout << "Creating PortMuxGenerator." << endl;
+PortMuxGenerator::PortMuxGenerator(int numPorts, string ports) : numPorts_(numPorts), ports_(ports) {
+  cout << "Creating PortMuxGenerator." << endl;
 }
 
 PortMuxGenerator::~PortMuxGenerator() {
-    cout << "Deleting PortMuxGenerator." << endl;
+  cout << "Deleting PortMuxGenerator." << endl;
+}
+
+int PortMuxGenerator::getNumPorts() {
+  return numPorts_;
+}
+
+string PortMuxGenerator::getPorts() {
+  return ports_;
 }
 
 string PortMuxGenerator::generateCode() {
-  return "+++ lots of code for port mux +++";
+  string code;
+
+  for(int i = 1; i <= numPorts_; i++) {
+    string buffPortInstCode;
+    buffPortInstCode = "  BufferedPort<Bottle> receiverBuff" + boost::lexical_cast<std::string>(i) + ";\n";
+    code += buffPortInstCode;
+  }
+  code += "\n";
+
+  return code;
 }
