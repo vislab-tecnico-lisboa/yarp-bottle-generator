@@ -44,6 +44,15 @@ string PortMuxGenerator::generateCode() {
     partialCode = "  yarp.connect(\"" + extractPortFromString(i) + "\", receiverBuff" + indexString + ".getName());\n";
     code += partialCode;
   }
+  code += "\n";
+
+  code += "  while(true){\n";
+  for(int i = 1; i <= numPorts_; i++) {
+    string partialCode;
+    string indexString = boost::lexical_cast<std::string>(i);
+    partialCode = "    Bottle* reading" + indexString + " = receiverBuff" + indexString + ".read();\n";
+    code += partialCode;
+  }
 
   code += "\n";
   return code;
