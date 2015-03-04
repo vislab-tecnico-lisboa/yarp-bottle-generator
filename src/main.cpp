@@ -20,13 +20,15 @@ int main(int argc, char* argv[]) {
   boost::property_tree::ini_parser::read_ini(configPath, pt);
   int numPorts = pt.get<int>("mux.num_ports");
   string ports = pt.get<string>("mux.ports");
+  string outputName = pt.get<string>("mux.output_name");
 
   CommonBeginningGenerator commonBeginGen;
   string commonBeginCode = commonBeginGen.generateCode();
-  PortMuxGenerator portMuxGen(numPorts, ports);
+  PortMuxGenerator portMuxGen(numPorts, ports, outputName);
   string portMuxCode = portMuxGen.generateCode();
   cout << "numPorts_: " << portMuxGen.getNumPorts() << endl;
   cout << "ports_: " << portMuxGen.getPorts() << endl;
+  cout << "outputName_: " << portMuxGen.getOutputName() << endl;
   CommonEndGenerator commonEndGen;
   string commonEndCode = commonEndGen.generateCode();
 

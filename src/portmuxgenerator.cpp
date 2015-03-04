@@ -5,7 +5,9 @@
 using namespace std;
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(int numPorts, string ports) : numPorts_(numPorts), ports_(ports) {
+PortMuxGenerator::PortMuxGenerator(int numPorts, string ports, string outputName) : numPorts_(numPorts),
+                                                                                    ports_(ports),
+                                                                                    outputName_(outputName) {
   cout << "Creating PortMuxGenerator." << endl;
 }
 
@@ -19,6 +21,10 @@ int PortMuxGenerator::getNumPorts() {
 
 string PortMuxGenerator::getPorts() {
   return ports_;
+}
+
+string PortMuxGenerator::getOutputName() {
+  return outputName_;
 }
 
 string PortMuxGenerator::generateCode() {
@@ -36,7 +42,7 @@ string PortMuxGenerator::generateCode() {
 
   code += "  Port outputPort;\n";
   code += "  outputPort.setWriteOnly();\n";
-  code += "  bool outputOk = outputPort.open(\"/generatedCode@/yarp/generatedCode\");\n\n";
+  code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/generatedCode\");\n\n";
 
   for(int i = 1; i <= numPorts_; i++) {
     string partialCode;
@@ -45,6 +51,13 @@ string PortMuxGenerator::generateCode() {
     code += partialCode;
   }
   code += "\n";
+
+  code += "  cout << \"Waiting for output...\" << endl;\n";
+  code += "  while(outputPort.getOutputCount() == 0) {\n";
+  code += "    Time::delay(1);\n";
+  code += "    cout << \".\\n\";\n";
+  code += "  }\n";
+  code += "  cout << \"Connection successfuly established.\" << endl;\n\n";
 
   code += "  while(true){\n";
   for(int i = 1; i <= numPorts_; i++) {

@@ -16,6 +16,7 @@ string CommonBeginningGenerator::generateCode() {
   string code;
 
   code += "#include <yarp/os/all.h>\n\n";
+  code += "using namespace std;\n";
   code += "using namespace yarp::os;\n\n";
   code += "int main(int argc, char *argv[]) {\n";
   code += "  Network yarp;\n\n";

@@ -7,12 +7,14 @@ using namespace std;
 
 class PortMuxGenerator : public YarpCodeGenerator {
   public:
-    PortMuxGenerator(int numPorts, string ports);
+    PortMuxGenerator(int numPorts, string ports, string outputName);
     ~PortMuxGenerator();
 
     int getNumPorts();
 
     string getPorts();
+
+    string getOutputName();
 
     string generateCode();
 
@@ -21,6 +23,7 @@ class PortMuxGenerator : public YarpCodeGenerator {
   private:
     int numPorts_;
     string ports_;
+    string outputName_;
 };
 
 #endif //PORTMUX_GENERATOR_HPP
