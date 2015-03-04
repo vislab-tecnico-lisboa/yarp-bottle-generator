@@ -14,11 +14,13 @@ include_directories(include)
 set(YarpBottleGeneratorSource  src/yarpcodegenerator.cpp
                                src/commonbeginninggenerator.cpp
                                src/portmuxgenerator.cpp
+                               src/dataconvertergenerator.cpp
                                src/commonendgenerator.cpp)
 
 set(YarpBottleGeneratorHeaders include/yarpcodegenerator.hpp
                                include/commonbeginninggenerator.hpp
                                include/portmuxgenerator.hpp
+                               include/dataconvertergenerator.hpp
                                include/commonendgenerator.hpp)
 
 # Create the 'libYarpBottleGenerator' shared library with the source and header files

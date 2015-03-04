@@ -2,14 +2,12 @@
 #define COMMONEND_GENERATOR_HPP
 #include "yarpcodegenerator.hpp"
 
-using namespace std;
-
 class CommonEndGenerator : public YarpCodeGenerator {
   public:
     CommonEndGenerator();
     ~CommonEndGenerator();
 
-    string generateCode();
+    std::string generateCode();
 };
 
 #endif //COMMONEND_GENERATOR_HPP

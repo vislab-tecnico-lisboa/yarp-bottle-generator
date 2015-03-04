@@ -1,38 +1,37 @@
 #include <iostream>
 #include <string>
 #include "portmuxgenerator.hpp"
-
-using namespace std;
+#include <boost/lexical_cast.hpp>
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(int numPorts, string ports, string outputName) : numPorts_(numPorts),
-                                                                                    ports_(ports),
-                                                                                    outputName_(outputName) {
-  cout << "Creating PortMuxGenerator." << endl;
+PortMuxGenerator::PortMuxGenerator(int numPorts, std::string ports, std::string outputName) : numPorts_(numPorts),
+                                                                                              ports_(ports),
+                                                                                              outputName_(outputName) {
+  std::cout << "Creating PortMuxGenerator." << std::endl;
 }
 
 PortMuxGenerator::~PortMuxGenerator() {
-  cout << "Deleting PortMuxGenerator." << endl;
+  std::cout << "Deleting PortMuxGenerator." << std::endl;
 }
 
 int PortMuxGenerator::getNumPorts() {
   return numPorts_;
 }
 
-string PortMuxGenerator::getPorts() {
+std::string PortMuxGenerator::getPorts() {
   return ports_;
 }
 
-string PortMuxGenerator::getOutputName() {
+std::string PortMuxGenerator::getOutputName() {
   return outputName_;
 }
 
-string PortMuxGenerator::generateCode() {
-  string code;
+std::string PortMuxGenerator::generateCode() {
+  std::string code;
 
   for(int i = 1; i <= numPorts_; i++) {
-    string partialCode;
-    string indexString = boost::lexical_cast<std::string>(i);
+    std::string partialCode;
+    std::string indexString = boost::lexical_cast<std::string>(i);
     partialCode = "  BufferedPort<Bottle> receiverBuff" + indexString + ";\n";
     code += partialCode;
     partialCode = "  bool receiver" + indexString +  "Ok = receiverBuff" + indexString + ".open(\"/generatedCode/receiver" + indexString +"\");\n";
@@ -45,25 +44,37 @@ string PortMuxGenerator::generateCode() {
   code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/generatedCode\");\n\n";
 
   for(int i = 1; i <= numPorts_; i++) {
-    string partialCode;
-    string indexString = boost::lexical_cast<std::string>(i);
+    std::string partialCode;
+    std::string indexString = boost::lexical_cast<std::string>(i);
     partialCode = "  yarp.connect(\"" + extractPortFromString(i) + "\", receiverBuff" + indexString + ".getName());\n";
     code += partialCode;
   }
   code += "\n";
 
-  code += "  cout << \"Waiting for output...\" << endl;\n";
+  code += "  std::cout << \"Waiting for output...\" << std::endl;\n";
   code += "  while(outputPort.getOutputCount() == 0) {\n";
   code += "    Time::delay(1);\n";
-  code += "    cout << \".\\n\";\n";
+  code += "    std::cout << \".\\n\";\n";
   code += "  }\n";
-  code += "  cout << \"Connection successfuly established.\" << endl;\n\n";
+  code += "  std::cout << \"Connection successfuly established.\" << std::endl;\n\n";
 
   code += "  while(true){\n";
   for(int i = 1; i <= numPorts_; i++) {
-    string partialCode;
-    string indexString = boost::lexical_cast<std::string>(i);
+    std::string partialCode;
+    std::string indexString = boost::lexical_cast<std::string>(i);
     partialCode = "    Bottle* reading" + indexString + " = receiverBuff" + indexString + ".read();\n";
+    code += partialCode;
+  }
+
+  code += "\n";
+  code += "    Bottle* mutex;\n\n";
+
+  for(int i = 1; i <= numPorts_; i++) {
+    std::string partialCode;
+    std::string indexString = boost::lexical_cast<std::string>(i);
+    partialCode = "    for(int i = 0; i < reading" + indexString + "->size(); i++) {\n";
+    partialCode += "      mutex->add(reading" + indexString + "->get(i));\n";
+    partialCode += "    }\n"; 
     code += partialCode;
   }
 
@@ -75,8 +86,8 @@ string PortMuxGenerator::generateCode() {
  ** Extract port name from wrap of ports names.
  ** Requires names separated by commas and no spaces between them.
  ****/
-string PortMuxGenerator::extractPortFromString(int index) {
-  string port;
+std::string PortMuxGenerator::extractPortFromString(int index) {
+  std::string port;
 
   int commasCounter = 1;
   int stringBeginIndex = 0;

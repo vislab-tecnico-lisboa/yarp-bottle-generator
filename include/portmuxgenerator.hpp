@@ -1,29 +1,26 @@
 #ifndef PORTMUX_GENERATOR_HPP
 #define PORTMUX_GENERATOR_HPP
 #include "yarpcodegenerator.hpp"
-#include <boost/lexical_cast.hpp>
-
-using namespace std;
 
 class PortMuxGenerator : public YarpCodeGenerator {
   public:
-    PortMuxGenerator(int numPorts, string ports, string outputName);
+    PortMuxGenerator(int numPorts, std::string ports, std::string outputName);
     ~PortMuxGenerator();
 
     int getNumPorts();
 
-    string getPorts();
+    std::string getPorts();
 
-    string getOutputName();
+    std::string getOutputName();
 
-    string generateCode();
+    std::string generateCode();
 
-    string extractPortFromString(int index);
+    std::string extractPortFromString(int index);
     
   private:
     int numPorts_;
-    string ports_;
-    string outputName_;
+    std::string ports_;
+    std::string outputName_;
 };
 
 #endif //PORTMUX_GENERATOR_HPP
