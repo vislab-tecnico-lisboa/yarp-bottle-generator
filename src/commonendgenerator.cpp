@@ -15,7 +15,8 @@ CommonEndGenerator::~CommonEndGenerator() {
 string CommonEndGenerator::generateCode() {
   string code;
 
-  code = "  return 0;\n}";
+  //code += "    outputPort.write(bottleToSend);\n";
+  code += "  }\n\n  return 0;\n}";
 
   return code;
 }
