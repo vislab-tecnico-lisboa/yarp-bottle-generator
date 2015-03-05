@@ -1,13 +1,11 @@
 #include <iostream>
 #include "yarpcodegenerator.hpp"
 
-using namespace std;
-
 // Constructor and destructor
 YarpCodeGenerator::YarpCodeGenerator() {
-  cout << "Creating YarpCodeGenerator." << endl;
+  std::cout << "Creating YarpCodeGenerator." << std::endl;
 }
 
 YarpCodeGenerator::~YarpCodeGenerator(/*string configData*/) {
-  cout << "Deleting YarpCodeGenerator." << endl;
+  std::cout << "Deleting YarpCodeGenerator." << std::endl;
 }

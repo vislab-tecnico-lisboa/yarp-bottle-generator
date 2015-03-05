@@ -1,19 +1,17 @@
 #include <iostream>
 #include "commonendgenerator.hpp"
 
-using namespace std;
-
 // Constructor and destructor
 CommonEndGenerator::CommonEndGenerator() {
-    cout << "Creating CommonEndGenerator." << endl;
+    std::cout << "Creating CommonEndGenerator." << std::endl;
 }
 
 CommonEndGenerator::~CommonEndGenerator() {
-    cout << "Deleting CommonEndGenerator." << endl;
+    std::cout << "Deleting CommonEndGenerator." << std::endl;
 }
 
-string CommonEndGenerator::generateCode() {
-  string code;
+std::string CommonEndGenerator::generateCode() {
+  std::string code;
 
   //code += "    outputPort.write(bottleToSend);\n";
   code += "  }\n\n  return 0;\n}";

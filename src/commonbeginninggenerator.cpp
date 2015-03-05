@@ -1,22 +1,20 @@
 #include <iostream>
 #include "commonbeginninggenerator.hpp"
 
-using namespace std;
-
 // Constructor and destructor
 CommonBeginningGenerator::CommonBeginningGenerator() {
-    cout << "Creating CommonBeginningGenerator." << endl;
+    std::cout << "Creating CommonBeginningGenerator." << std::endl;
 }
 
 CommonBeginningGenerator::~CommonBeginningGenerator() {
-    cout << "Deleting CommonBeginningGenerator." << endl;
+    std::cout << "Deleting CommonBeginningGenerator." << std::endl;
 }
 
-string CommonBeginningGenerator::generateCode() {
-  string code;
+std::string CommonBeginningGenerator::generateCode() {
+  std::string code;
 
+  code += "#include <iostream>\n";
   code += "#include <yarp/os/all.h>\n\n";
-  code += "using namespace std;\n";
   code += "using namespace yarp::os;\n\n";
   code += "int main(int argc, char *argv[]) {\n";
   code += "  Network yarp;\n\n";

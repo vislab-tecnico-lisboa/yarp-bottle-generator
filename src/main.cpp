@@ -2,41 +2,47 @@
 #include <fstream>
 #include "commonbeginninggenerator.hpp"
 #include "portmuxgenerator.hpp"
+#include "dataconvertergenerator.hpp"
 #include "commonendgenerator.hpp"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 
-using namespace std;
-
 int main(int argc, char* argv[]) {
   if(argc != 2) {
-    cout << "Please provide the path to the configuration file...";
+    std::cout << "Please provide the path to the configuration file...";
     return 0;
   }
 
-  string configPath = "../app/config.ini";
+  std::string configPath = "../app/config.ini";
 
   boost::property_tree::ptree pt;
   boost::property_tree::ini_parser::read_ini(configPath, pt);
   int numPorts = pt.get<int>("mux.num_ports");
-  string ports = pt.get<string>("mux.ports");
-  string outputName = pt.get<string>("mux.output_name");
+  std::string ports = pt.get<std::string>("mux.ports");
+  std::string outputName = pt.get<std::string>("mux.output_name");
+  std::string function = pt.get<std::string>("converter.function");
+  bool verboseConverter = pt.get<bool>("converter.verbose");
 
   CommonBeginningGenerator commonBeginGen;
-  string commonBeginCode = commonBeginGen.generateCode();
+  std::string commonBeginCode = commonBeginGen.generateCode();
   PortMuxGenerator portMuxGen(numPorts, ports, outputName);
-  string portMuxCode = portMuxGen.generateCode();
-  cout << "numPorts_: " << portMuxGen.getNumPorts() << endl;
-  cout << "ports_: " << portMuxGen.getPorts() << endl;
-  cout << "outputName_: " << portMuxGen.getOutputName() << endl;
+  std::string portMuxCode = portMuxGen.generateCode();
+  std::cout << "numPorts_: " << portMuxGen.getNumPorts() << std::endl;
+  std::cout << "ports_: " << portMuxGen.getPorts() << std::endl;
+  std::cout << "outputName_: " << portMuxGen.getOutputName() << std::endl;
+  DataConverterGenerator converterGen(function, verboseConverter);
+  std::string converterCode = converterGen.generateCode();
+  std::cout << "function_: " << converterGen.getFunction() << std::endl;
+  std::cout << "verbose_: " << converterGen.getVerbose() << std::endl;
   CommonEndGenerator commonEndGen;
-  string commonEndCode = commonEndGen.generateCode();
+  std::string commonEndCode = commonEndGen.generateCode();
 
-  ofstream generatedFile;
+  std::ofstream generatedFile;
   generatedFile.open ("../results/generatedCode.cpp");
 
   generatedFile << commonBeginCode;
   generatedFile << portMuxCode;
+  generatedFile << converterCode;
   generatedFile << commonEndCode;
 
   generatedFile.close();
