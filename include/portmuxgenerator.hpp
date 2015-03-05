@@ -14,13 +14,13 @@ class PortMuxGenerator : public YarpCodeGenerator {
     std::string getOutputName();
 
     std::string generateCode();
-
-    std::string extractPortFromString(int index);
     
   private:
     int numPorts_;
     std::string ports_;
     std::string outputName_;
+
+    std::string extractPortFromString(int index);
 };
 
 #endif //PORTMUX_GENERATOR_HPP

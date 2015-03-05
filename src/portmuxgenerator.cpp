@@ -67,13 +67,13 @@ std::string PortMuxGenerator::generateCode() {
   }
 
   code += "\n";
-  code += "    Bottle* mutex;\n\n";
+  code += "    Bottle mutex;\n\n";
 
   for(int i = 1; i <= numPorts_; i++) {
     std::string partialCode;
     std::string indexString = boost::lexical_cast<std::string>(i);
     partialCode = "    for(int i = 0; i < reading" + indexString + "->size(); i++) {\n";
-    partialCode += "      mutex->add(reading" + indexString + "->get(i));\n";
+    partialCode += "      mutex.add(reading" + indexString + "->get(i));\n";
     partialCode += "    }\n"; 
     code += partialCode;
   }
