@@ -22,6 +22,10 @@ int main(int argc, char* argv[]) {
   std::string outputName = pt.get<std::string>("mux.output_name");
   std::string function = pt.get<std::string>("converter.function");
   bool verboseConverter = pt.get<bool>("converter.verbose");
+  
+  /*std::string exp = pt.get<std::string>("message.1");
+
+  std::cout << "\n\nMESSAGE: " << exp << "\n" << std::endl;*/
 
   CommonBeginningGenerator commonBeginGen;
   std::string commonBeginCode = commonBeginGen.generateCode();
