@@ -4,9 +4,8 @@
 #include <boost/lexical_cast.hpp>
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(int numPorts, std::string ports, std::string outputName) : numPorts_(numPorts),
-                                                                                              ports_(ports),
-                                                                                              outputName_(outputName) {
+PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName) : numMuxes_(numMuxes),
+                                                                           outputName_(outputName) {
   std::cout << "Creating PortMuxGenerator." << std::endl;
 }
 
@@ -14,42 +13,68 @@ PortMuxGenerator::~PortMuxGenerator() {
   std::cout << "Deleting PortMuxGenerator." << std::endl;
 }
 
-int PortMuxGenerator::getNumPorts() {
-  return numPorts_;
-}
-
-std::string PortMuxGenerator::getPorts() {
-  return ports_;
+int PortMuxGenerator::getNumMuxes() {
+  return numMuxes_;
 }
 
 std::string PortMuxGenerator::getOutputName() {
   return outputName_;
 }
 
+std::vector<int> PortMuxGenerator::getNumPorts() {
+  return numPorts_;
+}
+
+std::vector<std::string> PortMuxGenerator::getPorts() {
+  return ports_;
+}
+
+void PortMuxGenerator::addMuxNumPorts(int numPorts) {
+  numPorts_.push_back(numPorts);
+}
+
+void PortMuxGenerator::addMuxPorts(std::string ports) {
+  ports_.push_back(ports);
+}
+
+int PortMuxGenerator::getMuxNumPorts(int muxIndex) {
+  return numPorts_.at(muxIndex);
+}
+
+std::string PortMuxGenerator::getMuxPorts(int muxIndex) {
+  return ports_.at(muxIndex);
+}
+
 std::string PortMuxGenerator::generateCode() {
   std::string code;
 
-  for(int i = 1; i <= numPorts_; i++) {
-    std::string partialCode;
-    std::string indexString = boost::lexical_cast<std::string>(i);
-    partialCode = "  BufferedPort<Bottle> receiverBuff" + indexString + ";\n";
-    code += partialCode;
-    partialCode = "  bool receiver" + indexString +  "Ok = receiverBuff" + indexString + ".open(\"/generatedCode/receiver" + indexString +"\");\n";
-    code += partialCode;
+  for(int j = 1; j <= numMuxes_; j++) {
+    std::string muxIndexString = boost::lexical_cast<std::string>(j);
+    for(int i = 1; i <= getMuxNumPorts(j - 1); i++) {
+      std::string partialCode;
+      std::string indexString = boost::lexical_cast<std::string>(i);
+      partialCode = "  BufferedPort<Bottle> receiverBuff" + indexString + "Mux" + muxIndexString + ";\n";
+      code += partialCode;
+      partialCode = "  bool receiver" + indexString + "Mux" + muxIndexString + "Ok = receiverBuff" + indexString + "Mux" + muxIndexString + ".open(\"/generatedCode/mux" + muxIndexString + "/receiver" + indexString +"\");\n";
+      code += partialCode;
+    }
+    code += "\n";
   }
-  code += "\n";
 
   code += "  Port outputPort;\n";
   code += "  outputPort.setWriteOnly();\n";
   code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/generatedCode\");\n\n";
 
-  for(int i = 1; i <= numPorts_; i++) {
-    std::string partialCode;
-    std::string indexString = boost::lexical_cast<std::string>(i);
-    partialCode = "  yarp.connect(\"" + extractPortFromString(i) + "\", receiverBuff" + indexString + ".getName());\n";
-    code += partialCode;
+  for(int j = 1; j <= numMuxes_; j++) {
+    std::string muxIndexString = boost::lexical_cast<std::string>(j);
+    for(int i = 1; i <= getMuxNumPorts(j - 1); i++) {
+      std::string partialCode;
+      std::string indexString = boost::lexical_cast<std::string>(i);
+      partialCode = "  yarp.connect(\"" + extractPortFromString(j - 1, i) + "\", receiverBuff" + indexString + "Mux" + muxIndexString + ".getName());\n";
+      code += partialCode;
+    }
+    code += "\n";
   }
-  code += "\n";
 
   code += "  std::cout << \"Waiting for output...\" << std::endl;\n";
   code += "  while(outputPort.getOutputCount() == 0) {\n";
@@ -59,26 +84,36 @@ std::string PortMuxGenerator::generateCode() {
   code += "  std::cout << \"Connection successfuly established.\" << std::endl;\n\n";
 
   code += "  while(true){\n";
-  for(int i = 1; i <= numPorts_; i++) {
-    std::string partialCode;
-    std::string indexString = boost::lexical_cast<std::string>(i);
-    partialCode = "    Bottle* reading" + indexString + " = receiverBuff" + indexString + ".read();\n";
-    code += partialCode;
+  for(int j = 1; j <= numMuxes_; j++) {
+    std::string muxIndexString = boost::lexical_cast<std::string>(j);
+    for(int i = 1; i <= getMuxNumPorts(j - 1); i++) {
+      std::string partialCode;
+      std::string indexString = boost::lexical_cast<std::string>(i);
+      partialCode = "    Bottle* reading" + indexString + "Mux" + muxIndexString + " = receiverBuff" + indexString + "Mux" + muxIndexString + ".read();\n";
+      code += partialCode;
+    }
+    code += "\n";
   }
 
+  for(int j = 1; j <= numMuxes_; j++) {
+    std::string muxIndexString = boost::lexical_cast<std::string>(j);
+    code += "    Bottle mux" + muxIndexString + ";\n";
+  }
   code += "\n";
-  code += "    Bottle mutex;\n\n";
 
-  for(int i = 1; i <= numPorts_; i++) {
-    std::string partialCode;
-    std::string indexString = boost::lexical_cast<std::string>(i);
-    partialCode = "    for(int i = 0; i < reading" + indexString + "->size(); i++) {\n";
-    partialCode += "      mutex.add(reading" + indexString + "->get(i));\n";
-    partialCode += "    }\n"; 
-    code += partialCode;
+  for(int j = 1; j <= numMuxes_; j++) {
+    std::string muxIndexString = boost::lexical_cast<std::string>(j);
+    for(int i = 1; i <= getMuxNumPorts(j - 1); i++) {
+      std::string partialCode;
+      std::string indexString = boost::lexical_cast<std::string>(i);
+      partialCode = "    for(int i = 0; i < reading" + indexString + "Mux" + muxIndexString + "->size(); i++) {\n";
+      partialCode += "      mux" + muxIndexString + ".add(reading" + indexString + "Mux" + muxIndexString + "->get(i));\n";
+      partialCode += "    }\n"; 
+      code += partialCode;
+    }
+    code += "\n";
   }
 
-  code += "\n";
   return code;
 }
 
@@ -86,35 +121,37 @@ std::string PortMuxGenerator::generateCode() {
  ** Extract port name from wrap of ports names.
  ** Requires names separated by commas and no spaces between them.
  ****/
-std::string PortMuxGenerator::extractPortFromString(int index) {
+std::string PortMuxGenerator::extractPortFromString(int muxIndex, int portIndex) {
   std::string port;
 
   int commasCounter = 1;
   int stringBeginIndex = 0;
-  if(index == 1) {
-    for(int i = 0; i < ports_.size(); i++) {
-      if(ports_.at(i) == ',') {
-        port = ports_.substr(0, i);
+  if(portIndex == 1 && getMuxNumPorts(muxIndex) == 1) {
+    port = getMuxPorts(muxIndex);
+  } else if(portIndex == 1) {
+    for(int i = 0; i < getMuxPorts(muxIndex).size(); i++) {
+      if(getMuxPorts(muxIndex).at(i) == ',') {
+        port = getMuxPorts(muxIndex).substr(0, i);
         break;
       } 
     }
-  } else if(index == numPorts_) {
-    for(int i = 0; i < ports_.size(); i++) {
-      if(ports_.at(i) == ',') {
+  } else if(portIndex == getMuxNumPorts(muxIndex)) {
+    for(int i = 0; i < getMuxPorts(muxIndex).size(); i++) {
+      if(getMuxPorts(muxIndex).at(i) == ',') {
         commasCounter++;
         stringBeginIndex = i;
-        if(commasCounter == index) {
-          port = ports_.substr(i + 1, ports_.size());
+        if(commasCounter == portIndex) {
+          port = getMuxPorts(muxIndex).substr(i + 1, getMuxPorts(muxIndex).size());
           break;
         }
       }
     }
   } else {
-    for(int i = 0; i < ports_.size(); i++) {
-      if(ports_.at(i) == ',') {
+    for(int i = 0; i < getMuxPorts(muxIndex).size(); i++) {
+      if(getMuxPorts(muxIndex).at(i) == ',') {
         commasCounter++;
-        if(commasCounter == (index + 1)) {
-          port = ports_.substr(stringBeginIndex, (i - stringBeginIndex));
+        if(commasCounter == (portIndex + 1)) {
+          port = getMuxPorts(muxIndex).substr(stringBeginIndex, (i - stringBeginIndex));
           break;
         } else {
           stringBeginIndex = i + 1;

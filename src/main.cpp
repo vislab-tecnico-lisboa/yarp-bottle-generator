@@ -6,6 +6,7 @@
 #include "commonendgenerator.hpp"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
+#include <boost/lexical_cast.hpp>
 
 int main(int argc, char* argv[]) {
   if(argc != 2) {
@@ -17,27 +18,46 @@ int main(int argc, char* argv[]) {
 
   boost::property_tree::ptree pt;
   boost::property_tree::ini_parser::read_ini(configPath, pt);
-  int numPorts = pt.get<int>("mux.num_ports");
-  std::string ports = pt.get<std::string>("mux.ports");
-  std::string outputName = pt.get<std::string>("mux.output_name");
-  std::string function = pt.get<std::string>("converter.function");
-  bool verboseConverter = pt.get<bool>("converter.verbose");
-  
-  /*std::string exp = pt.get<std::string>("message.1");
 
-  std::cout << "\n\nMESSAGE: " << exp << "\n" << std::endl;*/
-
+  // common beginning code generation
   CommonBeginningGenerator commonBeginGen;
   std::string commonBeginCode = commonBeginGen.generateCode();
-  PortMuxGenerator portMuxGen(numPorts, ports, outputName);
-  std::string portMuxCode = portMuxGen.generateCode();
-  std::cout << "numPorts_: " << portMuxGen.getNumPorts() << std::endl;
-  std::cout << "ports_: " << portMuxGen.getPorts() << std::endl;
+
+  // multiplexers code generation
+  int numMuxes = pt.get<int>("mux_general.num_mux");
+  std::string outputName = pt.get<std::string>("mux_general.output_name");
+  PortMuxGenerator portMuxGen(numMuxes, outputName);
+  for(int i = 1; i <= numMuxes; i++) {
+    std::string indexString = boost::lexical_cast<std::string>(i);
+    int numPorts = pt.get<int>("mux" + indexString + ".num_ports");
+    std::string ports = pt.get<std::string>("mux" + indexString + ".ports");
+    portMuxGen.addMuxNumPorts(numPorts);
+    portMuxGen.addMuxPorts(ports);
+  }
+  std::cout << "numMuxes_: " << portMuxGen.getNumMuxes() << std::endl;
   std::cout << "outputName_: " << portMuxGen.getOutputName() << std::endl;
-  DataConverterGenerator converterGen(function, verboseConverter);
+  for(int i = 1; i <= numMuxes; i++) {
+    std::cout << "[mux" << i << "] numPorts_: " << portMuxGen.getMuxNumPorts(i - 1) << std::endl;
+    std::cout << "[mux" << i << "] ports_: " << portMuxGen.getMuxPorts(i - 1) << std::endl;
+  }
+  std::string portMuxCode = portMuxGen.generateCode();
+
+  // converters code generation
+  DataConverterGenerator converterGen;
+  for(int i = 1; i <= numMuxes; i++) {
+    std::string indexString = boost::lexical_cast<std::string>(i);
+    std::string function = pt.get<std::string>("converter" + indexString + ".function");
+    bool verboseConverter = pt.get<bool>("converter" + indexString + ".verbose");
+    converterGen.addConverterFunction(function);
+    converterGen.addConverterVerbose(verboseConverter);
+  }
+  for(int i = 1; i <= numMuxes; i++) {
+    std::cout << "[converter" << i << "] function_: " << converterGen.getConverterFunction(i - 1) << std::endl;
+    std::cout << "[converter" << i << "] verbose_: " << converterGen.getConverterVerbose(i - 1) << std::endl;
+  }
   std::string converterCode = converterGen.generateCode();
-  std::cout << "function_: " << converterGen.getFunction() << std::endl;
-  std::cout << "verbose_: " << converterGen.getVerbose() << std::endl;
+
+  // common ending code generation 
   CommonEndGenerator commonEndGen;
   std::string commonEndCode = commonEndGen.generateCode();
 
