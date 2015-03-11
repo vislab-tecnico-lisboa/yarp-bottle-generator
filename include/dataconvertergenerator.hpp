@@ -1,23 +1,32 @@
 #ifndef DATACONVERTER_GENERATOR_HPP
 #define DATACONVERTER_GENERATOR_HPP
+#include <vector>
 #include "yarpcodegenerator.hpp"
 
 class DataConverterGenerator : public YarpCodeGenerator {
   public:
-    DataConverterGenerator(std::string function, bool verbose);
+    DataConverterGenerator();
     ~DataConverterGenerator();
 
-    std::string getFunction();
+    std::vector<std::string> getFunction();
 
-    bool getVerbose();
+    std::vector<bool> getVerbose();
+
+    void addConverterFunction(std::string function);
+
+    void addConverterVerbose(bool verbose);
+
+    std::string getConverterFunction(int converterIndex);
+
+    bool getConverterVerbose(int converterIndex);
 
     std::string generateCode();
     
   private:
-    std::string function_;
-    bool verbose_;
+    std::vector<std::string> function_;
+    std::vector<bool> verbose_;
 
-    std::string functionToString();
+    std::string functionToString(int converterIndex);
 };
 
 #endif //DATACONVERTER_GENERATOR_HPP
