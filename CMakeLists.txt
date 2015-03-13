@@ -15,13 +15,17 @@ set(YarpBottleGeneratorSource  src/yarpcodegenerator.cpp
                                src/commonbeginninggenerator.cpp
                                src/portmuxgenerator.cpp
                                src/dataconvertergenerator.cpp
-                               src/commonendgenerator.cpp)
+                               src/commonendgenerator.cpp
+                               src/bottlecreatorgenerator.cpp
+                               src/childgenerator.cpp)
 
 set(YarpBottleGeneratorHeaders include/yarpcodegenerator.hpp
                                include/commonbeginninggenerator.hpp
                                include/portmuxgenerator.hpp
                                include/dataconvertergenerator.hpp
-                               include/commonendgenerator.hpp)
+                               include/commonendgenerator.hpp
+                               include/bottlecreatorgenerator.hpp
+                               include/childgenerator.hpp)
 
 # Create the 'libYarpBottleGenerator' shared library with the source and header files
 add_library(YarpBottleGenerator SHARED ${YarpBottleGeneratorSource} ${YarpBottleGeneratorHeaders})

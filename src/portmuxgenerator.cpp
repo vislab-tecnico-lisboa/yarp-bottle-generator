@@ -83,6 +83,8 @@ std::string PortMuxGenerator::generateCode() {
   code += "  }\n";
   code += "  std::cout << \"Connection successfuly established.\" << std::endl;\n\n";
 
+  code += "  int counter = 0;\n\n";
+
   code += "  while(true){\n";
   for(int j = 1; j <= numMuxes_; j++) {
     std::string muxIndexString = boost::lexical_cast<std::string>(j);
