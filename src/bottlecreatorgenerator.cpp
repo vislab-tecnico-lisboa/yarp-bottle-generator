@@ -101,8 +101,8 @@ std::string BottleCreatorGenerator::handleFieldGeneration(int fieldIndex) {
         listIndex_++;
         listIndexString = boost::lexical_cast<std::string>(listIndex_);
         code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
-        code += "    list_" + listIndexString + ".add(timestamp)\n";
-        code += "    list_" + listIndexString + ".add(100)\n\n";
+        code += "    list_" + listIndexString + ".add(timestamp);\n";
+        code += "    list_" + listIndexString + ".add(100);\n\n";
       } else if(type == "counter") {
           code += "    message.add(counter);\n\n";
         } else if(type == "mux") {
