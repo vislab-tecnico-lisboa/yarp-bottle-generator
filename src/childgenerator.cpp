@@ -108,6 +108,9 @@ std::string ChildGenerator::handleFieldGeneration(int fieldIndex) {
             listIndex_++;
             listIndexString = boost::lexical_cast<std::string>(listIndex_);
             code += "    Bottle& " + parentName_ + "_" + listIndexString + " = " + parentName_ + ".addList();\n\n";
+            code += "    for(int i = 0; i < " + getFieldMux(fieldIndex) + ".size(); i++) {\n";
+            code += "      " + parentName_ + "_" + listIndexString + ".add(" + getFieldMux(fieldIndex) + ".get(i));\n";
+            code += "    }\n\n";
           } else if(type == "msg") {
               listIndex_++;
               listIndexString = boost::lexical_cast<std::string>(listIndex_);

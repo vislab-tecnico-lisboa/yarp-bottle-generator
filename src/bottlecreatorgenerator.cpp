@@ -108,7 +108,10 @@ std::string BottleCreatorGenerator::handleFieldGeneration(int fieldIndex) {
         } else if(type == "mux") {
             listIndex_++;
             listIndexString = boost::lexical_cast<std::string>(listIndex_);
-            code += "    Bottle& list_" + listIndexString + " = message.addList();\n\n";
+            code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
+            code += "    for(int i = 0; i < " + getFieldMux(fieldIndex) + ".size(); i++) {\n";
+            code += "      list_" + listIndexString + ".add(" + getFieldMux(fieldIndex) + ".get(i));\n";
+            code += "    }\n\n";
           } else if(type == "msg") {
               listIndex_++;
               listIndexString = boost::lexical_cast<std::string>(listIndex_);
