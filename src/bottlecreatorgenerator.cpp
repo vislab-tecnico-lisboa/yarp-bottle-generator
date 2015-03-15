@@ -80,6 +80,8 @@ std::string BottleCreatorGenerator::generateCode() {
     code += handleFieldGeneration(i);
   }
 
+  code += "    outputPort.write(message);\n";
+
   code += "    counter++;\n\n";
 
   return code;
