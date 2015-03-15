@@ -2,6 +2,7 @@
 #include <string>
 #include "childgenerator.hpp"
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 // Constructor and destructor
 ChildGenerator::ChildGenerator(int numFields) : numFields_(numFields),
@@ -95,7 +96,22 @@ std::string ChildGenerator::handleFieldGeneration(int fieldIndex) {
   } else if(type == "list") {
       listIndex_++;
       listIndexString = boost::lexical_cast<std::string>(listIndex_);
-      code += "    Bottle& " + parentName_ + "_" + listIndexString + " = " + parentName_ + ".addList();\n\n";
+      code += "    Bottle& " + parentName_ + "_" + listIndexString + " = " + parentName_ + ".addList();\n";
+      int elementIndex = 0;
+      std::string msgString = getFieldMsg(fieldIndex);
+      for(int i = 0; i < msgString.size(); i++) {
+        if(msgString.at(i) == ',' || i == (msgString.size() - 1)) {
+          std::string elementString;
+          if(i == (msgString.size() - 1))
+            elementString = msgString.substr(elementIndex, ((i - elementIndex) + 1));
+          else
+            elementString = msgString.substr(elementIndex, (i - elementIndex));
+          boost::erase_all(elementString, " ");
+          code += "    " + parentName_ + "_" + listIndexString + ".add(" + elementString + ");\n";
+          elementIndex = i + 1;
+        }
+      }
+      code += "\n";
     } else if(type == "timestamp") {
         listIndex_++;
         listIndexString = boost::lexical_cast<std::string>(listIndex_);
