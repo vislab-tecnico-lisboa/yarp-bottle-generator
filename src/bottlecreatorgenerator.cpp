@@ -110,7 +110,7 @@ std::string BottleCreatorGenerator::handleFieldGeneration(int fieldIndex) {
           else
             elementString = msgString.substr(elementIndex, (i - elementIndex));
           boost::erase_all(elementString, " ");
-          code += "    message.add(" + elementString + ");\n";
+          code += "    list_" + listIndexString + ".add(" + elementString + ");\n";
           elementIndex = i + 1;
         }
       }
