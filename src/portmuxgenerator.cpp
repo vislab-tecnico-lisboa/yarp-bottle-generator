@@ -2,6 +2,8 @@
 #include <string>
 #include "portmuxgenerator.hpp"
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
+
 
 // Constructor and destructor
 PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName) : numMuxes_(numMuxes),
@@ -83,6 +85,8 @@ std::string PortMuxGenerator::generateCode() {
   code += "  }\n";
   code += "  std::cout << \"Connection successfuly established.\" << std::endl;\n\n";
 
+  code += "  int counter = 0;\n\n";
+
   code += "  while(true){\n";
   for(int j = 1; j <= numMuxes_; j++) {
     std::string muxIndexString = boost::lexical_cast<std::string>(j);
@@ -159,6 +163,8 @@ std::string PortMuxGenerator::extractPortFromString(int muxIndex, int portIndex)
       }
     }
   }
+
+  boost::erase_all(port, " ");
 
   return port;
 }
