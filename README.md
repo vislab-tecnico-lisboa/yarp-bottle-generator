@@ -62,7 +62,15 @@ Open a terminal:
     cmake ..
     make
 
+That's it! In case you didn't change the generated code yourself this should compile with no errors and warnings. Please open an issue in case you are having problems compiling unchanged generated code.
+
+Feel free to edit the code to add some extra functionality at your own risk. Please open an issue if you think those changes should be automated to other users. I'll be available to help you with any doubts and problems.
+
 ## Run the generated node
+
+Don't forget this is a YARP node so you'll need to have a yarpserver running in order to run the code.
+
+Open a terminal:
 
     cd /path/to/destination/folder/yarp-bottle-generator/results/build
     ./generatedCode
