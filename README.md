@@ -1,2 +1,3 @@
 # yarp-bottle-generator
-Code generator to wrap ports, create ROS convertible bottles and attach extra info to it
+
+Although this repository is integrated within [VisLab's](https://github.com/vislab-tecnico-lisboa) projects it holds the result of my ([Miguel Aragão](https://github.com/mikearagao)) master thesis.
