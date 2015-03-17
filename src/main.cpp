@@ -81,11 +81,23 @@ void handleMessageFields(BottleCreatorGenerator& bottleCreatorGen, boost::proper
 
 int main(int argc, char* argv[]) {
   if(argc != 2) {
-    std::cout << "Please provide the path to the configuration file...";
+    std::cout << "Please provide the path to the configuration file...\n";
     return 0;
   }
 
-  std::string configPath = "../app/config.ini";
+  std::string fixedConfigPath = "/app/config.ini";
+  std::string configPath;
+  std::string generatedFileDestination = "/results/generatedCode.cpp";
+  std::string outputFileLocation;
+  
+  char* generatorDir = getenv("BOTTLE_GENERATOR_DIR");
+  if(generatorDir == NULL) {
+    std::cout << "The $BOTTLE_GENERATOR_DIR is not defined. Please export its value in order to proceed.\n";
+    return 0;
+  }
+
+  outputFileLocation = generatorDir + generatedFileDestination;
+  configPath = generatorDir + fixedConfigPath;
 
   boost::property_tree::ptree pt;
   boost::property_tree::ini_parser::read_ini(configPath, pt);
@@ -142,7 +154,7 @@ int main(int argc, char* argv[]) {
   std::string commonEndCode = commonEndGen.generateCode();
 
   std::ofstream generatedFile;
-  generatedFile.open ("../results/generatedCode.cpp");
+  generatedFile.open(outputFileLocation.c_str());
 
   generatedFile << commonBeginCode;
   generatedFile << portMuxCode;

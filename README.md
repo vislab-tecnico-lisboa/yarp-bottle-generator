@@ -10,7 +10,7 @@ Although this repository is integrated within [VisLab](https://github.com/vislab
 
 The repository has two major dependencies:
 * CMake - needed to build the project
-* Boost - the project uses several functionalities of the boost library
+* Boost - the project uses several functionalities from the boost library
 
 The code was written in C++ so any environment able to compile it (and compatible with the dependencies) should be fine.
 
@@ -21,7 +21,7 @@ Open a terminal:
     cd /path/to/destination/folder
     git clone https://github.com/vislab-tecnico-lisboa/yarp-bottle-generator.git
 
-## Compilation
+## Compile the generator and set the environment variable
 
 Open a terminal:
 
@@ -35,7 +35,11 @@ Optionally you can copy the executable to your bin folder (and be able to run it
 
     sudo make install
 
-## Run with default configuration file
+In order to run the generator you'll need to export the $BOTTLE_GENERATOR_DIR variable:
+
+    export BOTTLE_GENERATOR_DIR = /path/to/destination/folder/yarp-bottle-generator
+
+## Generate a node with the default configuration file
 
 Open a terminal:
 
@@ -47,5 +51,20 @@ In case you didn't run `sudo make install` you might need to run the last comman
     ./yarpBottleGenerator now
 
 You might be asking yourself about the `now` word... This is just a dummy element that you'll need to add to the execution instruction for now. In the future you'll be able to set the path to you configuration file there.
+
+## Compile the generated node
+
+Open a terminal:
+
+    cd /path/to/destination/folder/yarp-bottle-generator/results
+    mkdir build
+    cd build
+    cmake ..
+    make
+
+## Run the generated node
+
+    cd /path/to/destination/folder/yarp-bottle-generator/results/build
+    ./generatedCode
 
 ## Configure your own configuration file
