@@ -41,11 +41,11 @@ Open a terminal:
 
     ./yarpBottleGenerator now
 
-In case you didn't run `sudo make install` you might need to run the last command inside your build folder:
+In case you didn't run `sudo make install` you might need to run the last command from your build folder:
 
     cd /path/to/destination/folder/yarp-bottle-generator/build
     ./yarpBottleGenerator now
 
-You might be asking yourself about the `now` word... This is just a dummy element that you'll need to add to the execution instruction for now. Later you'll be able to set the path to you configuration file and you'll specify it there.
+You might be asking yourself about the `now` word... This is just a dummy element that you'll need to add to the execution instruction for now. In the future you'll be able to set the path to you configuration file there.
 
 ## Configure your own configuration file
