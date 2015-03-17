@@ -4,7 +4,21 @@ Although this repository is integrated within [VisLab](https://github.com/vislab
 
 ## Brief description
 
+The main goal of the yarp-bottle-generator is to be able to generate code that gets data from several sources and builds a bottle to be sent to some specific ROS topic (although it still doesn't support YARP to YARP communications it will in a near future).
+
+The final user will only have to customize a configuration file according to his needs.
+
+For now there 3 main structures that the user can customize (the multiplexers, cthe onverters and the message builder). Please read the documentation on [how to customize your own configuration file](https://github.com/vislab-tecnico-lisboa/yarp-bottle-generator#configure-your-own-configuration-file) in order to understand how they work and what you can achieve with them.
+
 ## Motivation
+
+After some work and investigation on the area I have decided to try to come with a solution to efficiently automate the process of building bottles to be sent to a ROS topic.
+
+The problem that I have identified was that on the ROS side we are waiting for a specific message configuration and the YARP to ROS code is waiting for a specific bottle configuration. This code helps the final user not having to be concerned on how the data is organized on the bottle with the guarantee that ROS will receive the message as expected.
+
+Besides this, the generator is also a useful tool to easily define several sources to get data from (even hard coded data) and create a bottle containing all that information. This way one can also find some usage on YARP to YARP cases (no support yet).
+
+My master thesis report has its deadline on May so I'll have a more detailed document soon. Any doubt please open an issue [here](https://github.com/vislab-tecnico-lisboa/yarp-bottle-generator/issues). I'll gladly try to help and take into account possible additions.
 
 ## Dependencies
 
@@ -21,7 +35,7 @@ Open a terminal:
     cd /path/to/destination/folder
     git clone https://github.com/vislab-tecnico-lisboa/yarp-bottle-generator.git
 
-## Compile the generator and set the environment variable
+## Compile the generator
 
 Open a terminal:
 
@@ -35,7 +49,9 @@ Optionally you can copy the executable to your bin folder (and be able to run it
 
     sudo make install
 
-In order to run the generator you'll need to export the $BOTTLE_GENERATOR_DIR variable:
+## Set the environment variable
+
+In order to run the generator you'll need to export the $BOTTLE_GENERATOR_DIR. Add the export to a script or execute it each time you want to run the generator:
 
     export BOTTLE_GENERATOR_DIR = /path/to/destination/folder/yarp-bottle-generator
 
@@ -75,4 +91,4 @@ Open a terminal:
     cd /path/to/destination/folder/yarp-bottle-generator/results/build
     ./generatedCode
 
-## Configure your own configuration file
+## Customize your own configuration file
