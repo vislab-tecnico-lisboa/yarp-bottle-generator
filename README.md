@@ -107,9 +107,9 @@ This part has 1 section: `[general]`.
 
 ##### Section [general]
 
-Has 1 variable: `output_name`.
+It has 1 variable: `output_name`.
 
-`output_name`: The name of the output topic. The bottle will be sent to this topic in the end!
+`output_name` : The name of the output topic. The bottle will be sent to this topic in the end!
 
 #### Example
 
@@ -124,17 +124,17 @@ This part has a variable number of sections: `[mux_general]`, `[mux1]...[muxn]`.
 
 ##### Section [mux_general]
 
-Has 1 variable: `num_mux`.
+It has 1 variable: `num_mux`.
 
-`num_mux`: The number of multiplexers you want to create.
+`num_mux` : The number of multiplexers you want to create.
 
 ##### Sections [mux1]...[muxn] 
 
-Have 2 variables: `num_ports` and `ports`.
+They have 2 variables: `num_ports` and `ports`.
 
-`num_ports`: The number of input ports on the multiplexer.
+`num_ports` : The number of input ports on the multiplexer.
 
-`ports`: The name of all the input ports. Each input name should be separated by a comma (in the end the number of commas should be equal to `num_ports - 1`). All white spaces will be excluded from the input names.
+`ports` : The name of all the input ports. Each input name should be separated by a comma (in the end the number of commas should be equal to `num_ports - 1`). All white spaces will be excluded from the input names.
 
 #### Example
 
@@ -164,15 +164,15 @@ This part has a variable number of sections: `[converter1]...[convertern]`.
 
 The generator expects an equal number of multiplexers and converters. This way each multiplexer will have their own converter. The `[converter1]` will be assigned to the `[mux1]`, the `[converter2]` will be assigned to the `[mux2]` and so on.
 
-Have 2 variables: `function` and `verbose`.
+They have 2 variables: `function` and `verbose`.
 
-`function`: The name of one of the available functions (list of functions above). Each function expects specific arguments so be careful to specify a function compatible with the data contained on the multiplexer.
+`function` : The name of one of the available functions (list of functions above). Each function expects specific arguments so be careful to specify a function compatible with the data contained on the multiplexer.
 
 List of functions:
 
-* `none`:
-* `none_double`:
-* `deg_to_rad`:
+* `none` : This is a dummy function that has no effect on the multiplexer data. Use it when you want your converter to have no effect at all.
+* `none_double` : Expects `double` values (or at least something that can be casted to `double`) so the multiplexer should only contain compatible values. Similar to the `none` function because it doesn't affect the multiplexer data. The main difference is that when the `verbose` variable is set to `true` it prints each of the values of the multiplexer.
+* `deg_to_rad` : Expects `double` values (or at least something that can be casted to `double`) so the multiplexer should only contain compatible values. It converts each entry of the multiplexer from degrees to radians.
 
 `verbose`: This variable expects two possible values: `true` or `false`. In case you set it to `true`, the converter will print all the information about the data that passes through it. Not all the functions will have stuff to print but there is no problem setting this variable to `true` in those cases.
 
