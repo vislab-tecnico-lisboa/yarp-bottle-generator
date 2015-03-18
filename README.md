@@ -95,11 +95,22 @@ Open a terminal:
 
 The interesting stuff starts now!
 
-I recommend you to read the previous paragraphs to understand how to use setup the envinronment and run the code in case you didn't do it already.
+I recommend you to read the previous paragraphs to understand how to setup the envinronment and run the code in case you didn't do it already.
 
-I'll split this documentation in 4 parts: general, multiplexers, converters and message builder. In the current state of the development and in order to correctly customize your own configuration file YOU'LL HAVE TO CUSTOMIZE ALL THE 4 PARTS.
+I'll split this documentation in 4 parts: general, multiplexers, converters and message builder. In the current state of the development YOU'LL HAVE TO CONFIGURE ALL THE 4 PARTS in order to correctly customize your own configuration file.
 
 ### General
+
+This part has 1 section: [general].
+
+The section [general] has 1 variable: output_name.
+
+The variable output_name expects the name of the output topic.
+
+Example:
+
+    [general]
+    output_name = /topic_name
 
 ### Multiplexers
 
