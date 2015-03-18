@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
 
   // multiplexers code generation
   int numMuxes = pt.get<int>("mux_general.num_mux");
-  std::string outputName = pt.get<std::string>("mux_general.output_name");
+  std::string outputName = pt.get<std::string>("general.output_name");
   PortMuxGenerator portMuxGen(numMuxes, outputName);
   for(int i = 1; i <= numMuxes; i++) {
     std::string indexString = boost::lexical_cast<std::string>(i);

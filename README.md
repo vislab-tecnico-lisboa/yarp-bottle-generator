@@ -12,7 +12,7 @@ For now there are 3 main structures that the user can customize (the multiplexer
 
 ## Motivation
 
-After some work and investigation on the area I have decided to try to come with a solution to efficiently automate the process of building bottles to be sent to a ROS topic.
+After some work and investigation on the area I have decided to come with a solution to efficiently automate the process of building bottles to be sent to a ROS topic.
 
 The problem that I have identified was that on the ROS side we are waiting for a specific message configuration and the YARP to ROS code is waiting for a specific bottle configuration. This code helps the final user not having to be concerned on how the data is organized on the bottle with the guarantee that ROS will receive the message as expected.
 
@@ -92,3 +92,17 @@ Open a terminal:
     ./generatedCode
 
 ## Customize your own configuration file
+
+The interesting stuff starts now!
+
+I recommend you to read the previous paragraphs to understand how to use setup the envinronment and run the code in case you didn't do it already.
+
+I'll split this documentation in 4 parts: general, multiplexers, converters and message builder. In the current state of the development and in order to correctly customize your own configuration file YOU'LL HAVE TO CUSTOMIZE ALL THE 4 PARTS.
+
+### General
+
+### Multiplexers
+
+### Converters
+
+### Message builder
