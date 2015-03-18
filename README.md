@@ -101,18 +101,57 @@ I'll split this documentation in 4 parts: general, multiplexers, converters and 
 
 ### General
 
-This part has 1 section: [general].
+#### Sections
 
-The section [general] has 1 variable: output_name.
+This part has 1 section: `[general]`.
 
-The variable output_name expects the name of the output topic.
+#### Section [general]
 
-Example:
+Has 1 variable: `output_name`.
+
+`output_name` -> The name of the output topic.
+
+#### Example
 
     [general]
     output_name = /topic_name
 
 ### Multiplexers
+
+#### Sections
+This part has n sections: `[mux_general]`, `[mux1]...[muxn]`.
+
+#### Section [mux_general]
+
+Has 1 variable: `num_mux`.
+
+`num_mux` -> The number of multiplexers you want to create.
+
+#### Sections [mux1]...[muxn] 
+
+Have 2 variables: `num_ports` and `ports`.
+
+`num_ports` -> The number of input ports on the multiplexer.
+
+`ports` -> The name of all the input ports. Each input name should be separated by a comma (in the end the number of commas should be equal to `num_ports - 1`). All white spaces will be excluded from the input names.
+
+#### Example
+
+    [mux_general]
+    num_mux = 3
+
+    [mux1]
+    num_ports = 4
+    ports = we , are , 4 , ports
+
+    [mux2]
+    num_ports = 2
+    ports = just , 2
+
+    [mux3]
+    num_ports = 1 // Yes! Altough it's a multiplexer it can accept only 1 port as the input...
+    ports = dummy_mux_port
+
 
 ### Converters
 
