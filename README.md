@@ -109,7 +109,7 @@ This part has 1 section: `[general]`.
 
 Has 1 variable: `output_name`.
 
-`output_name` -> The name of the output topic. The bottle will be sent to this topic in the end!
+`output_name`: The name of the output topic. The bottle will be sent to this topic in the end!
 
 #### Example
 
@@ -119,21 +119,22 @@ Has 1 variable: `output_name`.
 ### Multiplexers
 
 #### Sections
+
 This part has a variable number of sections: `[mux_general]`, `[mux1]...[muxn]`.
 
 ##### Section [mux_general]
 
 Has 1 variable: `num_mux`.
 
-`num_mux` -> The number of multiplexers you want to create.
+`num_mux`: The number of multiplexers you want to create.
 
 ##### Sections [mux1]...[muxn] 
 
 Have 2 variables: `num_ports` and `ports`.
 
-`num_ports` -> The number of input ports on the multiplexer.
+`num_ports`: The number of input ports on the multiplexer.
 
-`ports` -> The name of all the input ports. Each input name should be separated by a comma (in the end the number of commas should be equal to `num_ports - 1`). All white spaces will be excluded from the input names.
+`ports`: The name of all the input ports. Each input name should be separated by a comma (in the end the number of commas should be equal to `num_ports - 1`). All white spaces will be excluded from the input names.
 
 #### Example
 
@@ -156,37 +157,39 @@ Have 2 variables: `num_ports` and `ports`.
 ### Converters
 
 #### Sections
-This part has a variable number of sections: `[mux_general]`, `[mux1]...[muxn]`.
 
-#### Section [mux_general]
+This part has a variable number of sections: `[converter1]...[convertern]`.
 
-Has 1 variable: `num_mux`.
+##### Sections [converter1]...[convertern]
 
-`num_mux` -> The number of multiplexers you want to create.
+The generator expects an equal number of multiplexers and converters. This way each multiplexer will have their own converter. The `[converter1]` will be assigned to the `[mux1]`, the `[converter2]` will be assigned to the `[mux2]` and so on.
 
-#### Sections [mux1]...[muxn] 
+Have 2 variables: `function` and `verbose`.
 
-Have 2 variables: `num_ports` and `ports`.
+`function`: The name of one of the available functions (list of functions above). Each function expects specific arguments so be careful to specify a function compatible with the data contained on the multiplexer.
 
-`num_ports` -> The number of input ports on the multiplexer.
+List of functions:
 
-`ports` -> The name of all the input ports. Each input name should be separated by a comma (in the end the number of commas should be equal to `num_ports - 1`). All white spaces will be excluded from the input names.
+* `none`:
+* `none_double`:
+* `deg_to_rad`:
+
+`verbose`: This variable expects two possible values: `true` or `false`. In case you set it to `true`, the converter will print all the information about the data that passes through it. Not all the functions will have stuff to print but there is no problem setting this variable to `true` in those cases.
 
 #### Example
 
-    [mux_general]
-    num_mux = 3
+Since the number of converters has to be equal to the number of multiplexers lets assume the last example of 3 multiplexers.
 
-    [mux1]
-    num_ports = 4
-    ports = we , are , 4 , ports
+    [converter1]
+    function = none
+    verbose = false
 
-    [mux2]
-    num_ports = 2
-    ports = just , 2
+    [converter2]
+    function = none_double
+    verbose = true
 
-    [mux3]
-    num_ports = 1 // Yes! Altough it's a multiplexer it can accept only 1 port as the input...
-    ports = dummy_mux_port
+    [converter3]
+    function = deg_to_rad
+    verbose = false
 
 ### Message builder
