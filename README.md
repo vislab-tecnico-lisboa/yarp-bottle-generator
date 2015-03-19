@@ -99,6 +99,8 @@ I recommend you to read the previous paragraphs to understand how to setup the e
 
 I'll split this documentation in 4 parts: general, multiplexers, converters and message builder. In the current state of the development YOU'LL HAVE TO CONFIGURE ALL THE 4 PARTS in order to correctly customize your own configuration file.
 
+At the moment the code generator is looking for the file `config.ini` on the folder `$BOTTLE_GENERATOR_DIR/app`. That's the file you have to edit in order to run the generator with your own configuration.
+
 ### General
 
 #### Sections
@@ -208,7 +210,19 @@ They have 1 or more variables: `num_fields` and `1_stuff...n_stuff`.
 
 `num_fields` : The number of fields of the ROS message. Both primitive and non-primitive variables should count as 1 field.
 
-`verbose` : 
+`[field index]_type` : The field index should be the index of the field on the ROS message from 1 to `num_fields`. It expects one of the types available (list of types above). Each type might expect more variables following the same syntax (also explained on the list above): `[field index]_msg` and/or `[field index]_mux`.
+
+List of types:
+
+* `single_value` : Expects `[field index]_msg` variable. You can specify one hard coded value for this field.
+* `timestamp` : Doesn't expect any other variable. It adds a timestamp to the bottle.
+* `counter` : Doesn't expect any other variable. It adds an iteration index to the bottle.
+* `list` : Expects `[field index]_msg` variable. You can specify a hard coded list of values for this field. Each value should be separated by a comma. All white spaces will be excluded.
+* `mux` : Expects `[field index]_mux` variable. The name of the mux section you want to use to fill this field. Each value from the multiplexer will be pushed to the bottle.
+
+That's it! In the end you'll have a bottle with the right structure to be sent to a ROS topic.
+
+Be careful to match the data with what ROS expects to receive... If you set a `list` type and ROS is waiting for a vector of integers your `[field index]_msg` should be something like `[field index]_msg = 1 , 2 , 3 , 4...`. In case you specify something like `[field index]_msg = "hey" , "there"...` the conversion will fail since it cannot cast the string to an integer.
 
 #### Example
 
@@ -217,22 +231,22 @@ Since the number of converters has to be equal to the number of multiplexers let
     // ROS message examples: Example1.msg, Example2.msg and std_msgs/Header.msg 
     //// 
     // begin Example1.msg
-    std_msgs/Header header
-    string[] first_last_name
-    float64[] readings
+    //  std_msgs/Header header
+    //  string[] first_last_name
+    //  float64[] readings
     // end Example1.msg
     ////
     ////
     // begin Example2.msg
-    float64 random_number
+    //  float64 random_number
     // end Example2.msg
     ////
     ////
     // begin Header.msg
-    uint32 seq
-    time stamp
-    string frame_id
-    Example2 other_example
+    //  uint32 seq
+    //  time stamp
+    //  string frame_id
+    //  Example2 other_example
     // end Header.msg
     ////
 
