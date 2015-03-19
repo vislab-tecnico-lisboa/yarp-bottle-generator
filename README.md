@@ -250,7 +250,8 @@ Be careful to match the data with what ROS expects to receive... If you set a `l
     // end Header.msg
     ////
 
-    // Imagine that the output topic is waiting for a message of the type Example1.msg. That means our `[message]` section should match the Example1.msg
+    // Imagine that the output topic is waiting for a message of the type Example1.msg.
+    // That means our `[message]` section should match the Example1.msg
 
     [message]
     num_fields = 3
