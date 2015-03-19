@@ -120,7 +120,7 @@ It has 1 variable: `output_name`.
 
 #### Sections
 
-This part has a variable number of sections: `[mux_general]`, `[mux1]...[muxn]`.
+This part has 1 or more sections: `[mux_general]`, `[mux1]...[muxn]`.
 
 ##### Section [mux_general]
 
@@ -158,7 +158,7 @@ They have 2 variables: `num_ports` and `ports`.
 
 #### Sections
 
-This part has a variable number of sections: `[converter1]...[convertern]`.
+This part has 1 or more sections: `[converter1]...[convertern]`.
 
 ##### Sections [converter1]...[convertern]
 
@@ -174,7 +174,7 @@ List of functions:
 * `none_double` : Expects `double` values (or at least something that can be casted to `double`) so the multiplexer should only contain compatible values. Similar to the `none` function because it doesn't affect the multiplexer data. The main difference is that when the `verbose` variable is set to `true` it prints each of the values of the multiplexer.
 * `deg_to_rad` : Expects `double` values (or at least something that can be casted to `double`) so the multiplexer should only contain compatible values. It converts each entry of the multiplexer from degrees to radians.
 
-`verbose`: This variable expects two possible values: `true` or `false`. In case you set it to `true`, the converter will print all the information about the data that passes through it. Not all the functions will have stuff to print but there is no problem setting this variable to `true` in those cases.
+`verbose` : This variable expects two possible values: `true` or `false`. In case you set it to `true`, the converter will print all the information about the data that passes through it. Not all the functions will have stuff to print but there is no problem setting this variable to `true` in those cases.
 
 #### Example
 
@@ -193,3 +193,70 @@ Since the number of converters has to be equal to the number of multiplexers let
     verbose = false
 
 ### Message builder
+
+#### Sections
+
+This part has 1 or more sections: `[message]`, `[whatever_unique_name_1]...[whatever_unique_name_n]`.
+
+It differs from the other parts because although sections might have completely different names the variables will have the same functionality and syntax on all of them. The only mandatory section is the `message` and the other ones can be named at your taste although it has to be an unique name.
+
+##### Sections [message] and [whatever_unique_name_1] to [whatever_unique_name_n]
+
+Each of this sections should match a ROS message. Why more than one section? Because ROS messages can have variables of non-primitive types. A non-primitive type will be represented by another section. Too confusing? Please check the instructions above.
+
+They have 1 or more variables: `num_fields` and `1_stuff...n_stuff`.
+
+`num_fields` : The number of fields of the ROS message. Both primitive and non-primitive variables should count as 1 field.
+
+`verbose` : 
+
+#### Example
+
+Since the number of converters has to be equal to the number of multiplexers lets assume the last example of 3 multiplexers.
+
+    // ROS message examples: Example1.msg, Example2.msg and std_msgs/Header.msg 
+    //// 
+    // begin Example1.msg
+    std_msgs/Header header
+    string[] first_last_name
+    float64[] readings
+    // end Example1.msg
+    ////
+    ////
+    // begin Example2.msg
+    float64 random_number
+    // end Example2.msg
+    ////
+    ////
+    // begin Header.msg
+    uint32 seq
+    time stamp
+    string frame_id
+    Example2 other_example
+    // end Header.msg
+    ////
+
+    // Imagine that the output topic is waiting for a message of the type Example1.msg. That means our `[message]` section should match the Example1.msg
+
+    [message]
+    num_fields = 3
+    1_type = msg
+    1_msg = header_message
+    2_type = list
+    2_type = Miguel , Aragão
+    3_type = mux
+    3_mux = mux2
+
+    [header_message]
+    num_fiels = 4
+    1_type = counter
+    2_type = timestamp
+    3_type = single_value
+    3_msg = "0"
+    4_type = msg
+    4_msg = random_number_message
+
+    [random_number_message]
+    num_fields = 1
+    1_type = single_value
+    1_msg = 31.45
