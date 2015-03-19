@@ -198,11 +198,11 @@ Since the number of converters has to be equal to the number of multiplexers let
 
 #### Sections
 
-This part has 1 or more sections: `[message]`, `[whatever_unique_name_1]...[whatever_unique_name_n]`.
+This part has 1 or more sections: `[message]`, `[unique_name_1]...[unique_name_n]`.
 
 It differs from the other parts because although sections might have completely different names the variables will have the same functionality and syntax on all of them. The only mandatory section is the `message` and the other ones can be named at your taste although it has to be an unique name.
 
-##### Sections [message] and [whatever_unique_name_1] to [whatever_unique_name_n]
+##### Sections [message] and [unique_name_1] to [unique_name_n]
 
 Each of this sections should match a ROS message. Why more than one section? Because ROS messages can have variables of non-primitive types. A non-primitive type will be represented by another section. Too confusing? Please check the instructions above.
 
