@@ -152,7 +152,8 @@ They have 2 variables: `num_ports` and `ports`.
     ports = just , 2
 
     [mux3]
-    num_ports = 1 // Yes! Altough it's a multiplexer it can accept only 1 port as the input...
+    num_ports = 1
+    # Yes! Altough it's a multiplexer it can accept only 1 port as the input...
     ports = dummy_mux_port
 
 
@@ -216,10 +217,10 @@ The fields should be organized ON THE SAME ORDER AS THEY ARE ON THE ROS MESSAGE!
 
 List of types:
 
-* `single_value` : Expects `[field index]_msg` variable. You can specify one hard coded value for this field.
+* `single_value` : Expects `[field index]_msg` variable. You can specify one hard coded value for this field. Strings should be added between `"[string_value]"`.
 * `timestamp` : Doesn't expect any other variable. It adds a timestamp to the bottle.
 * `counter` : Doesn't expect any other variable. It adds an iteration index to the bottle.
-* `list` : Expects `[field index]_msg` variable. You can specify a hard coded list of values for this field. Each value should be separated by a comma. All white spaces will be excluded.
+* `list` : Expects `[field index]_msg` variable. You can specify a hard coded list of values for this field. Each value should be separated by a comma. All white spaces will be excluded. Each string should be added between `"[string_value]"`.
 * `mux` : Expects `[field index]_mux` variable. The name of the mux section you want to use to fill this field. Each value from the multiplexer will be pushed to the bottle.
 
 That's it! In the end you'll have a bottle with the right structure to be sent to a ROS topic.
@@ -258,7 +259,7 @@ Be careful to match the data with what ROS expects to receive... If you set a `l
     1_type = msg
     1_msg = header_message
     2_type = list
-    2_type = Miguel , Aragão
+    2_msg = "Miguel" , "Aragão"
     3_type = mux
     3_mux = mux2
 
