@@ -225,7 +225,7 @@ List of types:
 
 That's it! In the end you'll have a bottle with the right structure to be sent to a ROS topic.
 
-Be careful to match the data with what ROS expects to receive... If you set a `list` type and ROS is waiting for a vector of integers your `[field index]_msg` should be something like `[field index]_msg = 1 , 2 , 3 , 4...`. In case you specify something like `[field index]_msg = "hey" , "there"...` the conversion will fail since it cannot cast the values to integers.
+Be careful to match the data with what ROS expects to receive... If you set a `list` type and ROS is waiting for a vector of integers your `[field index]_msg` should be something like `[field index]_msg = 1 , 2 , 3 , 4`. In case you specify something like `[field index]_msg = "hey" , "there"` the conversion will fail because it cannot cast the values to integers.
 
 #### Example
 
