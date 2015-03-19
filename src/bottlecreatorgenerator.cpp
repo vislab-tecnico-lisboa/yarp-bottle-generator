@@ -80,6 +80,8 @@ std::string BottleCreatorGenerator::generateCode() {
     code += handleFieldGeneration(i);
   }
 
+  code += "    outputPort.write(message);\n";
+
   code += "    counter++;\n\n";
 
   return code;
@@ -108,7 +110,7 @@ std::string BottleCreatorGenerator::handleFieldGeneration(int fieldIndex) {
           else
             elementString = msgString.substr(elementIndex, (i - elementIndex));
           boost::erase_all(elementString, " ");
-          code += "    message.add(" + elementString + ");\n";
+          code += "    list_" + listIndexString + ".add(" + elementString + ");\n";
           elementIndex = i + 1;
         }
       }
