@@ -208,6 +208,8 @@ Each of this sections should match a ROS message. Why more than one section? Bec
 
 They have 1 or more variables: `num_fields` and `1_stuff...n_stuff`.
 
+The fields should be organized ON THE SAME ORDER AS THEY ARE ON THE ROS MESSAGE!
+
 `num_fields` : The number of fields of the ROS message. Both primitive and non-primitive variables should count as 1 field.
 
 `[field index]_type` : The field index should be the index of the field on the ROS message from 1 to `num_fields`. It expects one of the types available (list of types above). Each type might expect more variables following the same syntax (also explained on the list above): `[field index]_msg` and/or `[field index]_mux`.
@@ -222,7 +224,7 @@ List of types:
 
 That's it! In the end you'll have a bottle with the right structure to be sent to a ROS topic.
 
-Be careful to match the data with what ROS expects to receive... If you set a `list` type and ROS is waiting for a vector of integers your `[field index]_msg` should be something like `[field index]_msg = 1 , 2 , 3 , 4...`. In case you specify something like `[field index]_msg = "hey" , "there"...` the conversion will fail since it cannot cast the string to an integer.
+Be careful to match the data with what ROS expects to receive... If you set a `list` type and ROS is waiting for a vector of integers your `[field index]_msg` should be something like `[field index]_msg = 1 , 2 , 3 , 4...`. In case you specify something like `[field index]_msg = "hey" , "there"...` the conversion will fail since it cannot cast the values to integers.
 
 #### Example
 
