@@ -228,8 +228,6 @@ Be careful to match the data with what ROS expects to receive... If you set a `l
 
 #### Example
 
-Since the number of converters has to be equal to the number of multiplexers lets assume the last example of 3 multiplexers.
-
     // ROS message examples: Example1.msg, Example2.msg and std_msgs/Header.msg 
     //// 
     // begin Example1.msg
