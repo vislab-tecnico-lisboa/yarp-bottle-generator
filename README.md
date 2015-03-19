@@ -276,3 +276,11 @@ Be careful to match the data with what ROS expects to receive... If you set a `l
     num_fields = 1
     1_type = single_value
     1_msg = 31.45
+
+### Conclusion
+
+You're ready to customize your own configuration file! On the `$BOTTLE_GENERATOR_DIR/app` you'll find the `config.ini` file which has the conjuction of all the examples from this documentation (there might be some other configuration files there for some common use cases and for debug purposes, rename to `config.ini` the one you want to use - I know... lazy hack for now).
+
+Customize it yourself and I'll be glad to help you on any problem you might have!
+
+Please open an issue for doubts and all kinds of feedback.
