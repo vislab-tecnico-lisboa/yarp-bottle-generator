@@ -107,37 +107,30 @@ int main(int argc, char* argv[]) {
   std::string commonBeginCode = commonBeginGen.generateCode();
 
   // multiplexers code generation
-  int numMuxes = pt.get<int>("mux_general.num_mux");
+  int numMuxes = pt.get<int>("general.num_mux");
   std::string outputName = pt.get<std::string>("general.output_name");
   PortMuxGenerator portMuxGen(numMuxes, outputName);
+  DataConverterGenerator converterGen;
   for(int i = 1; i <= numMuxes; i++) {
     std::string indexString = boost::lexical_cast<std::string>(i);
     int numPorts = pt.get<int>("mux" + indexString + ".num_ports");
     std::string ports = pt.get<std::string>("mux" + indexString + ".ports");
+    std::string function = pt.get<std::string>("mux" + indexString + ".function");
+    bool verboseConverter = pt.get<bool>("mux" + indexString + ".verbose");
     portMuxGen.addMuxNumPorts(numPorts);
     portMuxGen.addMuxPorts(ports);
+    converterGen.addConverterFunction(function);
+    converterGen.addConverterVerbose(verboseConverter);
   }
   std::cout << "numMuxes_: " << portMuxGen.getNumMuxes() << std::endl;
   std::cout << "outputName_: " << portMuxGen.getOutputName() << std::endl;
   for(int i = 1; i <= numMuxes; i++) {
     std::cout << "[mux" << i << "] numPorts_: " << portMuxGen.getMuxNumPorts(i - 1) << std::endl;
     std::cout << "[mux" << i << "] ports_: " << portMuxGen.getMuxPorts(i - 1) << std::endl;
-  }
-  std::string portMuxCode = portMuxGen.generateCode();
-
-  // converters code generation
-  DataConverterGenerator converterGen;
-  for(int i = 1; i <= numMuxes; i++) {
-    std::string indexString = boost::lexical_cast<std::string>(i);
-    std::string function = pt.get<std::string>("converter" + indexString + ".function");
-    bool verboseConverter = pt.get<bool>("converter" + indexString + ".verbose");
-    converterGen.addConverterFunction(function);
-    converterGen.addConverterVerbose(verboseConverter);
-  }
-  for(int i = 1; i <= numMuxes; i++) {
     std::cout << "[converter" << i << "] function_: " << converterGen.getConverterFunction(i - 1) << std::endl;
     std::cout << "[converter" << i << "] verbose_: " << converterGen.getConverterVerbose(i - 1) << std::endl;
   }
+  std::string portMuxCode = portMuxGen.generateCode();
   std::string converterCode = converterGen.generateCode();
 
   // bottle creator code generation
@@ -145,9 +138,6 @@ int main(int argc, char* argv[]) {
   BottleCreatorGenerator bottleCreatorGen(numFields);
   handleMessageFields(bottleCreatorGen, pt);  
   std::string bottleCreatorCode = bottleCreatorGen.generateCode();
-
-  //std::cout << "\n\nEXP num fields: " << bottleCreatorGen.getFirstChild().getFirstChild().getNumFields() << "\n\n" << std::endl;
-  //std::cout << "\n\nEXP num fields: " << bottleCreatorGen.getFirstChild().getFirstChild().getFieldType(1) << "\n\n" << std::endl;
 
   // common ending code generation 
   CommonEndGenerator commonEndGen;

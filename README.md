@@ -97,7 +97,7 @@ The interesting stuff starts now!
 
 I recommend you to read the previous paragraphs to understand how to setup the envinronment and run the code in case you didn't do it already.
 
-I'll split this documentation in 4 parts: general, multiplexers, converters and message builder. In the current state of the development YOU'LL HAVE TO CONFIGURE ALL THE 4 PARTS in order to correctly customize your own configuration file.
+I'll split this documentation in 3 parts: general, multiplexers and message builder. In the current state of the development YOU'LL HAVE TO CONFIGURE ALL THE 4 PARTS in order to correctly customize your own configuration file.
 
 At the moment the code generator is looking for the file `config.ini` on the folder `$BOTTLE_GENERATOR_DIR/app`. That's the file you have to edit in order to run the generator with your own configuration.
 
@@ -109,9 +109,11 @@ This part has 1 section: `[general]`.
 
 ##### Section [general]
 
-It has 1 variable: `output_name`.
+It has 2 variables: `output_name` and `num_mux`.
 
 `output_name` : The name of the output topic. The bottle will be sent to this topic in the end!
+
+`num_mux` : The number of multiplexers you want to create.
 
 #### Example
 
@@ -122,52 +124,17 @@ It has 1 variable: `output_name`.
 
 #### Sections
 
-This part has 1 or more sections: `[mux_general]`, `[mux1]...[muxn]`.
+This part has 0 or more sections: `[mux1]...[muxn]`.
 
-##### Section [mux_general]
-
-It has 1 variable: `num_mux`.
-
-`num_mux` : The number of multiplexers you want to create.
+The generator expects an equal number of multiplexers and converters so the variables to configure the converter are in each multiplexer section (the last 2 variables are the ones that configure the converter).
 
 ##### Sections [mux1]...[muxn] 
 
-They have 2 variables: `num_ports` and `ports`.
+They have 4 variables: `num_ports`, `ports`, `function` and `verbose`.
 
 `num_ports` : The number of input ports on the multiplexer.
 
 `ports` : The name of all the input ports. Each input name should be separated by a comma (in the end the number of commas should be equal to `num_ports - 1`). All white spaces will be excluded from the input names.
-
-#### Example
-
-    [mux_general]
-    num_mux = 3
-
-    [mux1]
-    num_ports = 4
-    ports = we , are , 4 , ports
-
-    [mux2]
-    num_ports = 2
-    ports = just , 2
-
-    [mux3]
-    num_ports = 1
-    # Yes! Altough it's a multiplexer it can accept only 1 port as the input...
-    ports = dummy_mux_port
-
-
-### Converters
-
-#### Sections
-
-This part has 1 or more sections: `[converter1]...[convertern]`.
-
-##### Sections [converter1]...[convertern]
-
-The generator expects an equal number of multiplexers and converters. This way each multiplexer will have their own converter. The `[converter1]` will be assigned to the `[mux1]`, the `[converter2]` will be assigned to the `[mux2]` and so on.
-
-They have 2 variables: `function` and `verbose`.
 
 `function` : The name of one of the available functions (list of functions above). Each function expects specific arguments so be careful to specify a function compatible with the data contained on the multiplexer.
 
@@ -181,17 +148,25 @@ List of functions:
 
 #### Example
 
-Since the number of converters has to be equal to the number of multiplexers lets assume the last example of 3 multiplexers.
+    [mux_general]
+    num_mux = 3
 
-    [converter1]
+    [mux1]
+    num_ports = 4
+    ports = we , are , 4 , ports
     function = none
     verbose = false
 
-    [converter2]
+    [mux2]
+    num_ports = 2
+    ports = just , 2
     function = none_double
     verbose = true
 
-    [converter3]
+    [mux3]
+    num_ports = 1
+    # Yes! Altough it's a multiplexer it can accept only 1 port as the input...
+    ports = dummy_mux_port
     function = deg_to_rad
     verbose = false
 
