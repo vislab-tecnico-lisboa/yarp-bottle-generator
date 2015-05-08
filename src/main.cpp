@@ -109,7 +109,8 @@ int main(int argc, char* argv[]) {
   // multiplexers code generation
   int numMuxes = pt.get<int>("general.num_mux");
   std::string outputName = pt.get<std::string>("general.output_name");
-  PortMuxGenerator portMuxGen(numMuxes, outputName);
+  bool toRos = pt.get<bool>("general.to_ros");
+  PortMuxGenerator portMuxGen(numMuxes, outputName, toRos);
   DataConverterGenerator converterGen;
   for(int i = 1; i <= numMuxes; i++) {
     std::string indexString = boost::lexical_cast<std::string>(i);
@@ -124,6 +125,7 @@ int main(int argc, char* argv[]) {
   }
   std::cout << "numMuxes_: " << portMuxGen.getNumMuxes() << std::endl;
   std::cout << "outputName_: " << portMuxGen.getOutputName() << std::endl;
+  std::cout << "toRos_: " << portMuxGen.getToRos() << std::endl;
   for(int i = 1; i <= numMuxes; i++) {
     std::cout << "[mux" << i << "] numPorts_: " << portMuxGen.getMuxNumPorts(i - 1) << std::endl;
     std::cout << "[mux" << i << "] ports_: " << portMuxGen.getMuxPorts(i - 1) << std::endl;

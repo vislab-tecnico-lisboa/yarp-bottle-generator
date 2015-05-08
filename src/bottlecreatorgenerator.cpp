@@ -73,6 +73,8 @@ std::string BottleCreatorGenerator::getFieldMux(int fieldIndex) {
 std::string BottleCreatorGenerator::generateCode() {
   std::string code;
 
+  code += "    /* DO SOME COMPUTATION HERE */\n\n";
+
   code += "    int timestamp = (int) Time::now();\n\n";
   code += "    Bottle message = Bottle();\n\n";
 
@@ -80,9 +82,13 @@ std::string BottleCreatorGenerator::generateCode() {
     code += handleFieldGeneration(i);
   }
 
+  code += "    /* DO SOME COMPUTATION HERE */\n\n";
+
   code += "    outputPort.write(message);\n";
 
-  code += "    counter++;\n\n";
+  code += "    counter++;\n";
+
+  code += "    Time::delay(0.1);\n";
 
   return code;
 }
