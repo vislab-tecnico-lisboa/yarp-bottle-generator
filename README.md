@@ -109,9 +109,11 @@ This part has 1 section: `[general]`.
 
 ##### Section [general]
 
-It has 2 variables: `output_name` and `num_mux`.
+It has 3 variables: `output_name`, `to_ros` and `num_mux`.
 
 `output_name` : The name of the output topic. The bottle will be sent to this topic in the end!
+
+`to_ros` : This variable expects true or false, true when the module is supposed to send a message to a ROS topic and false when the output is a YARP port.
 
 `num_mux` : The number of multiplexers you want to create.
 
@@ -119,6 +121,8 @@ It has 2 variables: `output_name` and `num_mux`.
 
     [general]
     output_name = /topic_name
+    to_ros = true
+    num_mux = 3
 
 ### Multiplexers
 
@@ -147,9 +151,6 @@ List of functions:
 `verbose` : This variable expects two possible values: `true` or `false`. In case you set it to `true`, the converter will print all the information about the data that passes through it. Not all the functions will have stuff to print but there is no problem setting this variable to `true` in those cases.
 
 #### Example
-
-    [mux_general]
-    num_mux = 3
 
     [mux1]
     num_ports = 4
@@ -180,7 +181,7 @@ It differs from the other parts because although sections might have completely 
 
 ##### Sections [message] and [unique_name_1] to [unique_name_n]
 
-Each of this sections should match a ROS message. Why more than one section? Because ROS messages can have variables of non-primitive types. A non-primitive type will be represented by another section. Too confusing? Please check the instructions above.
+In case you have set the output as a YARP port you can organize your message the way you want but in case you set the output as a ROS topic each of this sections should match a ROS message. Why more than one section? Because ROS messages can have variables of non-primitive types. A non-primitive type will be represented by another section. Too confusing? Please check the instructions above.
 
 They have 1 or more variables: `num_fields` and `1_stuff...n_stuff`.
 

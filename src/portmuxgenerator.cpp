@@ -6,8 +6,9 @@
 
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName) : numMuxes_(numMuxes),
-                                                                           outputName_(outputName) {
+PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos) :  numMuxes_(numMuxes),
+                                                                                        outputName_(outputName),
+                                                                                        toRos_(toRos) {
   std::cout << "Creating PortMuxGenerator." << std::endl;
 }
 
@@ -21,6 +22,10 @@ int PortMuxGenerator::getNumMuxes() {
 
 std::string PortMuxGenerator::getOutputName() {
   return outputName_;
+}
+
+bool PortMuxGenerator::getToRos() {
+  return toRos_;
 }
 
 std::vector<int> PortMuxGenerator::getNumPorts() {
@@ -65,7 +70,10 @@ std::string PortMuxGenerator::generateCode() {
 
   code += "  Port outputPort;\n";
   code += "  outputPort.setWriteOnly();\n";
-  code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/generatedCode\");\n\n";
+  if(toRos_)
+    code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/generatedCode\");\n\n";
+  else
+    code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "\");\n\n";
 
   for(int j = 1; j <= numMuxes_; j++) {
     std::string muxIndexString = boost::lexical_cast<std::string>(j);
@@ -78,12 +86,14 @@ std::string PortMuxGenerator::generateCode() {
     code += "\n";
   }
 
-  code += "  std::cout << \"Waiting for output...\" << std::endl;\n";
-  code += "  while(outputPort.getOutputCount() == 0) {\n";
-  code += "    Time::delay(1);\n";
-  code += "    std::cout << \".\\n\";\n";
-  code += "  }\n";
-  code += "  std::cout << \"Connection successfuly established.\" << std::endl;\n\n";
+  if(toRos_) {
+    code += "  std::cout << \"Waiting for output...\" << std::endl;\n";
+    code += "  while(outputPort.getOutputCount() == 0) {\n";
+    code += "    Time::delay(1);\n";
+    code += "    std::cout << \".\\n\";\n";
+    code += "  }\n";
+    code += "  std::cout << \"Connection successfuly established.\" << std::endl;\n\n";
+  }
 
   code += "  int counter = 0;\n\n";
 
