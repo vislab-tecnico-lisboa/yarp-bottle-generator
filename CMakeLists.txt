@@ -23,7 +23,7 @@ IF("${isSystemDir}" STREQUAL "-1")
 ENDIF("${isSystemDir}" STREQUAL "-1")
 
 # Check if package is installed
-#find_package(Boost REQUIRED serialization system)
+find_package(Boost REQUIRED system filesystem)
 
 # Path to the includes
 include_directories(include)
@@ -54,7 +54,7 @@ add_library(YarpBottleGenerator SHARED ${YarpBottleGeneratorSource} ${YarpBottle
 add_executable(yarpBottleGenerator src/main.cpp)
 
 # Link executable and libraries
-target_link_libraries(yarpBottleGenerator YarpBottleGenerator)
+target_link_libraries(yarpBottleGenerator YarpBottleGenerator ${Boost_LIBRARIES})
 
 # Option to run sudo make install
 install(TARGETS YarpBottleGenerator DESTINATION lib)
