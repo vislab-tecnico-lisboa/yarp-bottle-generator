@@ -6,9 +6,11 @@
 
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos) :  numMuxes_(numMuxes),
+PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos, std::string & output_port_name_) :  numMuxes_(numMuxes),
                                                                                         outputName_(outputName),
-                                                                                        toRos_(toRos) {
+                                                                                        toRos_(toRos), 
+											output_port_name(output_port_name_) 
+{
   std::cout << "Creating PortMuxGenerator." << std::endl;
 }
 
@@ -62,7 +64,7 @@ std::string PortMuxGenerator::generateCode() {
       std::string indexString = boost::lexical_cast<std::string>(i);
       partialCode = "  BufferedPort<Bottle> receiverBuff" + indexString + "Mux" + muxIndexString + ";\n";
       code += partialCode;
-      partialCode = "  bool receiver" + indexString + "Mux" + muxIndexString + "Ok = receiverBuff" + indexString + "Mux" + muxIndexString + ".open(\"/generatedCode/mux" + muxIndexString + "/receiver" + indexString +"\");\n";
+      partialCode = "  bool receiver" + indexString + "Mux" + muxIndexString + "Ok = receiverBuff" + indexString + "Mux" + muxIndexString + ".open(\"/"+output_port_name+"/mux" + muxIndexString + "/receiver" + indexString +"\");\n";
       code += partialCode;
     }
     code += "\n";
@@ -71,7 +73,7 @@ std::string PortMuxGenerator::generateCode() {
   code += "  Port outputPort;\n";
   code += "  outputPort.setWriteOnly();\n";
   if(toRos_)
-    code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/generatedCode\");\n\n";
+    code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/"+output_port_name+"\");\n\n";
   else
     code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "\");\n\n";
 

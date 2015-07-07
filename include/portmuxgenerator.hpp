@@ -5,10 +5,11 @@
 
 class PortMuxGenerator : public YarpCodeGenerator {
   public:
-    PortMuxGenerator(int numMuxes, std::string outputName, bool toRos);
+    PortMuxGenerator(int numMuxes, std::string outputName, bool toRos, std::string & output_port_name_);
     ~PortMuxGenerator();
 
     int getNumMuxes();
+
 
     std::string getOutputName();
 
@@ -34,7 +35,7 @@ class PortMuxGenerator : public YarpCodeGenerator {
     bool toRos_;
     std::vector<int> numPorts_;
     std::vector<std::string> ports_;
-
+    std::string output_port_name;
     std::string extractPortFromString(int muxIndex, int portIndex);
 };
 

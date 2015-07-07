@@ -8,7 +8,7 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/lexical_cast.hpp>
-
+#include <boost/filesystem.hpp>
 void handleMessageChild(ChildGenerator& childGen, boost::property_tree::ptree& pt, std::string messageName) {
   int numFields = childGen.getNumFields();
 
@@ -79,25 +79,42 @@ void handleMessageFields(BottleCreatorGenerator& bottleCreatorGen, boost::proper
   }
 }
 
-int main(int argc, char* argv[]) {
-  if(argc != 2) {
-    std::cout << "Please provide the path to the configuration file...\n";
+void info()
+{
+	std::cout << "args:\n\t[0]: configuration file name" << std::endl;
+	std::cout << "\t[1]: generated code file name" << std::endl;
+}
+
+int main(int argc, char* argv[]) 
+{
+  if(argc != 3) {
+    info();
     return 0;
   }
 
-  std::string fixedConfigPath = "/app/config.ini";
-  std::string configPath;
-  std::string generatedFileDestination = "/results/generatedCode.cpp";
+  std::string fixedResultsPath = "/results/";
+  std::string fixedConfigPath = "/app/";
+  
+
+  std::string configFileName=argv[1];
+  std::string generatedFileDestination = argv[2];
   std::string outputFileLocation;
   
+  int lastindex = generatedFileDestination.find_last_of("."); 
+  std::string resultsFileFolder = generatedFileDestination.substr(0, lastindex); 
+  std::cout << resultsFileFolder << std::endl;
   char* generatorDir = getenv("BOTTLE_GENERATOR_DIR");
   if(generatorDir == NULL) {
     std::cout << "The $BOTTLE_GENERATOR_DIR is not defined. Please export its value in order to proceed.\n";
     return 0;
   }
 
-  outputFileLocation = generatorDir + generatedFileDestination;
-  configPath = generatorDir + fixedConfigPath;
+
+boost::filesystem::path dir(generatorDir +fixedResultsPath+ resultsFileFolder);
+if (boost::filesystem::create_directory(dir))
+    std::cout << "Success" << "\n";
+  outputFileLocation = generatorDir +fixedResultsPath+ resultsFileFolder+"/"+ generatedFileDestination;
+  std::string configPath = generatorDir + fixedConfigPath+configFileName;
 
   boost::property_tree::ptree pt;
   boost::property_tree::ini_parser::read_ini(configPath, pt);
@@ -110,7 +127,7 @@ int main(int argc, char* argv[]) {
   int numMuxes = pt.get<int>("general.num_mux");
   std::string outputName = pt.get<std::string>("general.output_name");
   bool toRos = pt.get<bool>("general.to_ros");
-  PortMuxGenerator portMuxGen(numMuxes, outputName, toRos);
+  PortMuxGenerator portMuxGen(numMuxes, outputName, toRos, resultsFileFolder);
   DataConverterGenerator converterGen;
   for(int i = 1; i <= numMuxes; i++) {
     std::string indexString = boost::lexical_cast<std::string>(i);
