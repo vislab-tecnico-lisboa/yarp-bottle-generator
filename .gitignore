@@ -1,4 +1,3 @@
 build
-results/build
-results/generatedCode.cpp
+results/*
 *.*~
