@@ -118,9 +118,8 @@ std::string ChildGenerator::handleFieldGeneration(int fieldIndex) {
         code += "    double dummy;\n";
         code += "    double frac=modf(timestamp,&dummy);\n";
         code += "    Bottle& " + parentName_ + "_" + listIndexString + " = " + parentName_ + ".addList();\n";
-        code += "    " + parentName_ + "_" + listIndexString + ".add(timestamp);\n";
-        code += "    list_" + listIndexString + ".add((int)timestamp);\n";
-        code += "    list_" + listIndexString + ".add((int)frac*pow(10,9));\n\n";
+        code += "    " + parentName_ + "_" + listIndexString + ".add((int)timestamp);\n";
+        code += "    " + parentName_ + "_" + listIndexString + ".add((int)round(frac*pow(10,9)));\n\n";
       } else if(type == "counter") {
           code += "    " + parentName_ + ".add(counter);\n\n";
         } else if(type == "mux") {

@@ -131,7 +131,7 @@ std::string BottleCreatorGenerator::handleFieldGeneration(int fieldIndex) {
         code += "    double frac=modf(timestamp,&dummy);\n";
         code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
         code += "    list_" + listIndexString + ".add((int)timestamp);\n";
-        code += "    list_" + listIndexString + ".add((int)frac*pow(10,9));\n\n";
+        code += "    list_" + listIndexString + ".add((int)round(frac*pow(10,9)));\n\n";
     } else if(type == "counter") {
         code += "    message.add(counter);\n\n";
     } else if(type == "mux") {
