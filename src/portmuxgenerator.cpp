@@ -8,8 +8,8 @@
 // Constructor and destructor
 PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos, std::string & output_port_name_) :  numMuxes_(numMuxes),
                                                                                         outputName_(outputName),
-                                                                                        toRos_(toRos), 
-											output_port_name(output_port_name_) 
+                                                                                        toRos_(toRos),
+                                            output_port_name(output_port_name_)
 {
   std::cout << "Creating PortMuxGenerator." << std::endl;
 }
@@ -124,7 +124,7 @@ std::string PortMuxGenerator::generateCode() {
       std::string indexString = boost::lexical_cast<std::string>(i);
       partialCode = "    for(int i = 0; i < reading" + indexString + "Mux" + muxIndexString + "->size(); i++) {\n";
       partialCode += "      mux" + muxIndexString + ".add(reading" + indexString + "Mux" + muxIndexString + "->get(i));\n";
-      partialCode += "    }\n"; 
+      partialCode += "    }\n";
       code += partialCode;
     }
     code += "\n";
@@ -149,7 +149,7 @@ std::string PortMuxGenerator::extractPortFromString(int muxIndex, int portIndex)
       if(getMuxPorts(muxIndex).at(i) == ',') {
         port = getMuxPorts(muxIndex).substr(0, i);
         break;
-      } 
+      }
     }
   } else if(portIndex == getMuxNumPorts(muxIndex)) {
     for(int i = 0; i < getMuxPorts(muxIndex).size(); i++) {

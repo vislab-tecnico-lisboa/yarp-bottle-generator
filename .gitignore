@@ -1,3 +1,4 @@
 build
 results/*
 *.*~
+CMakeLists.txt.user

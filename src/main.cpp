@@ -127,6 +127,8 @@ if (boost::filesystem::create_directory(dir))
   int numMuxes = pt.get<int>("general.num_mux");
   std::string outputName = pt.get<std::string>("general.output_name");
   bool toRos = pt.get<bool>("general.to_ros");
+  double rate = pt.get<double>("general.rate");
+
   PortMuxGenerator portMuxGen(numMuxes, outputName, toRos, resultsFileFolder);
   DataConverterGenerator converterGen;
   for(int i = 1; i <= numMuxes; i++) {
@@ -154,7 +156,7 @@ if (boost::filesystem::create_directory(dir))
 
   // bottle creator code generation
   int numFields = pt.get<int>("message.num_fields");
-  BottleCreatorGenerator bottleCreatorGen(numFields);
+  BottleCreatorGenerator bottleCreatorGen(numFields, rate);
   handleMessageFields(bottleCreatorGen, pt);  
   std::string bottleCreatorCode = bottleCreatorGen.generateCode();
 
