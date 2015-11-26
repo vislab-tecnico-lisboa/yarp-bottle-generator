@@ -6,11 +6,12 @@
 
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos, std::string & output_port_name_, std::string & ros_message_name) :  numMuxes_(numMuxes),
+PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos, std::string & output_port_name_, std::string & ros_message_name, bool fromRos) :  numMuxes_(numMuxes),
                                                                                         outputName_(outputName),
                                                                                         toRos_(toRos),
                                             output_port_name(output_port_name_),
-                                            rosMessageName_(ros_message_name)
+                                            rosMessageName_(ros_message_name),
+                                            fromRos_(fromRos)
 {
   std::cout << "Creating PortMuxGenerator." << std::endl;
 }
@@ -33,7 +34,9 @@ std::string PortMuxGenerator::getRosMessageName() {
 bool PortMuxGenerator::getToRos() {
   return toRos_;
 }
-
+bool PortMuxGenerator::getFromRos() {
+  return fromRos_;
+}
 std::vector<int> PortMuxGenerator::getNumPorts() {
   return numPorts_;
 }
@@ -67,8 +70,15 @@ std::string PortMuxGenerator::generateCode() {
       std::string partialCode;
       std::string indexString = boost::lexical_cast<std::string>(i);
       partialCode = "  BufferedPort<Bottle> receiverBuff" + indexString + "Mux" + muxIndexString + ";\n";
-      code += partialCode;
-      partialCode = "  bool receiver" + indexString + "Mux" + muxIndexString + "Ok = receiverBuff" + indexString + "Mux" + muxIndexString + ".open(\"/"+output_port_name+"/mux" + muxIndexString + "/receiver" + indexString +"\");\n";
+      if (getFromRos()){
+        partialCode += "  receiverBuff" + indexString + "Mux" + muxIndexString + ".setReadOnly();\n";
+        code += partialCode;
+        partialCode = "  bool receiver" + indexString + "Mux" + muxIndexString + "Ok = receiverBuff" + indexString + "Mux" + muxIndexString + ".open(\""+extractPortFromString(j-1, i)+"@/mux" + muxIndexString + "/receiver" + indexString +"\");\n";
+      }
+      else {
+          code += partialCode;
+          partialCode = "  bool receiver" + indexString + "Mux" + muxIndexString + "Ok = receiverBuff" + indexString + "Mux" + muxIndexString + ".open(\"/"+output_port_name+"/mux" + muxIndexString + "/receiver" + indexString +"\");\n";
+      }
       code += partialCode;
     }
     code += "\n";
@@ -81,23 +91,28 @@ std::string PortMuxGenerator::generateCode() {
   code += "  outputPort.setWriteOnly();\n";
   if(toRos_)
     code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/"+output_port_name+"\");\n\n";
+  else if (fromRos_)
+    code += "  bool outputOk = outputPort.open(\"/writeBuff \");\n\n";
   else
-    code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "\");\n\n";
-
-  for(int j = 1; j <= numMuxes_; j++) {
-    std::string muxIndexString = boost::lexical_cast<std::string>(j);
-    for(int i = 1; i <= getMuxNumPorts(j - 1); i++) {
-      std::string partialCode;
-      std::string indexString = boost::lexical_cast<std::string>(i);
-      partialCode = "  yarp.connect(\"" + extractPortFromString(j - 1, i) + "\", receiverBuff" + indexString + "Mux" + muxIndexString + ".getName());\n";
-      code += partialCode;
+    code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/"+output_port_name+"\");\n\n";
+  if (!fromRos_){
+    for(int j = 1; j <= numMuxes_; j++) {
+        std::string muxIndexString = boost::lexical_cast<std::string>(j);
+        for(int i = 1; i <= getMuxNumPorts(j - 1); i++) {
+            std::string partialCode;
+            std::string indexString = boost::lexical_cast<std::string>(i);
+            partialCode = "  yarp.connect(\"" + extractPortFromString(j - 1, i) + "\", receiverBuff" + indexString + "Mux" + muxIndexString + ".getName());\n";
+            code += partialCode;
+        }
+        code += "\n";
     }
-    code += "\n";
   }
 
-  if(toRos_) {
+  if(getFromRos()) {
     code += "  std::cout << \"Waiting for output...\" << std::endl;\n";
-    code += "  while(outputPort.getOutputCount() == 0) {\n";
+    code += "  bool connectSuccess = false;\n";
+    code += "  while(!connectSuccess) {\n";
+    code += "    connectSuccess = yarp.connect(\" /writeBuff\", \"" + getOutputName() + "\");\n";
     code += "    Time::delay(1);\n";
     code += "    std::cout << \".\\n\";\n";
     code += "  }\n";

@@ -4,6 +4,7 @@
 #include "portmuxgenerator.hpp"
 #include "dataconvertergenerator.hpp"
 #include "bottlecreatorgenerator.hpp"
+#include "cmakefilegenerator.hpp"
 #include "commonendgenerator.hpp"
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/ini_parser.hpp>
@@ -127,12 +128,13 @@ if (boost::filesystem::create_directory(dir))
   int numMuxes = pt.get<int>("general.num_mux");
   std::string outputName = pt.get<std::string>("general.output_name");
   bool toRos = pt.get<bool>("general.to_ros");
+  bool fromRos = pt.get<bool>("general.from_ros_topics");
   double rate = pt.get<double>("general.rate");
   std::string rosMessageName("");
   if (toRos)
      rosMessageName = pt.get<std::string>("general.ros_msg_name");
 
-  PortMuxGenerator portMuxGen(numMuxes, outputName, toRos, resultsFileFolder, rosMessageName);
+  PortMuxGenerator portMuxGen(numMuxes, outputName, toRos, resultsFileFolder, rosMessageName, fromRos);
   DataConverterGenerator converterGen;
   for(int i = 1; i <= numMuxes; i++) {
     std::string indexString = boost::lexical_cast<std::string>(i);
@@ -177,6 +179,13 @@ if (boost::filesystem::create_directory(dir))
   generatedFile << commonEndCode;
 
   generatedFile.close();
-
+  CMakeFileGenerator cmakeFileGen;
+  cmakeFileGen.cpp_file_name = resultsFileFolder;
+  std::string cmakeFileCode = cmakeFileGen.generateCode();
+  std::ofstream cmakeGeneratedFile;
+  std::string cmakelists_str = generatorDir +fixedResultsPath+ resultsFileFolder+"/CMakeLists.txt";
+  cmakeGeneratedFile.open(cmakelists_str.c_str());
+  cmakeGeneratedFile << cmakeFileCode;
+  cmakeGeneratedFile.close();
   return 0;
 }

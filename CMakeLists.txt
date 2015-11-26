@@ -36,7 +36,8 @@ set(YarpBottleGeneratorSource  src/yarpcodegenerator.cpp
                                src/dataconvertergenerator.cpp
                                src/commonendgenerator.cpp
                                src/bottlecreatorgenerator.cpp
-                               src/childgenerator.cpp)
+                               src/childgenerator.cpp
+			       src/cmakefilegenerator.cpp)
 
 set(YarpBottleGeneratorHeaders include/yarpcodegenerator.hpp
                                include/commonbeginninggenerator.hpp
@@ -44,7 +45,8 @@ set(YarpBottleGeneratorHeaders include/yarpcodegenerator.hpp
                                include/dataconvertergenerator.hpp
                                include/commonendgenerator.hpp
                                include/bottlecreatorgenerator.hpp
-                               include/childgenerator.hpp)
+                               include/childgenerator.hpp
+			       include/cmakefilegenerator.hpp)
 
 # Create the 'libYarpBottleGenerator' shared library with the source and header files
 add_library(YarpBottleGenerator SHARED ${YarpBottleGeneratorSource} ${YarpBottleGeneratorHeaders})
