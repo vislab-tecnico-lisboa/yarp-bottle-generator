@@ -6,10 +6,11 @@
 
 
 // Constructor and destructor
-PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos, std::string & output_port_name_) :  numMuxes_(numMuxes),
+PortMuxGenerator::PortMuxGenerator(int numMuxes, std::string outputName, bool toRos, std::string & output_port_name_, std::string & ros_message_name) :  numMuxes_(numMuxes),
                                                                                         outputName_(outputName),
                                                                                         toRos_(toRos),
-                                            output_port_name(output_port_name_)
+                                            output_port_name(output_port_name_),
+                                            rosMessageName_(ros_message_name)
 {
   std::cout << "Creating PortMuxGenerator." << std::endl;
 }
@@ -26,6 +27,9 @@ std::string PortMuxGenerator::getOutputName() {
   return outputName_;
 }
 
+std::string PortMuxGenerator::getRosMessageName() {
+  return rosMessageName_;
+}
 bool PortMuxGenerator::getToRos() {
   return toRos_;
 }
@@ -71,6 +75,9 @@ std::string PortMuxGenerator::generateCode() {
   }
 
   code += "  Port outputPort;\n";
+  if (toRos_) {
+    code += "  outputPort.promiseType(Type::byNameOnWire(\"" + getRosMessageName() + "\"));\n";
+  }
   code += "  outputPort.setWriteOnly();\n";
   if(toRos_)
     code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/"+output_port_name+"\");\n\n";

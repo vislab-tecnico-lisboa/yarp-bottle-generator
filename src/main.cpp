@@ -85,7 +85,7 @@ void info()
 	std::cout << "\t[1]: generated code file name" << std::endl;
 }
 
-int main(int argc, char* argv[]) 
+int main(int argc, char* argv[])
 {
   if(argc != 3) {
     info();
@@ -94,14 +94,14 @@ int main(int argc, char* argv[])
 
   std::string fixedResultsPath = "/results/";
   std::string fixedConfigPath = "/app/";
-  
+
 
   std::string configFileName=argv[1];
   std::string generatedFileDestination = argv[2];
   std::string outputFileLocation;
-  
-  int lastindex = generatedFileDestination.find_last_of("."); 
-  std::string resultsFileFolder = generatedFileDestination.substr(0, lastindex); 
+
+  int lastindex = generatedFileDestination.find_last_of(".");
+  std::string resultsFileFolder = generatedFileDestination.substr(0, lastindex);
   std::cout << resultsFileFolder << std::endl;
   char* generatorDir = getenv("BOTTLE_GENERATOR_DIR");
   if(generatorDir == NULL) {
@@ -128,8 +128,11 @@ if (boost::filesystem::create_directory(dir))
   std::string outputName = pt.get<std::string>("general.output_name");
   bool toRos = pt.get<bool>("general.to_ros");
   double rate = pt.get<double>("general.rate");
+  std::string rosMessageName("");
+  if (toRos)
+     rosMessageName = pt.get<std::string>("general.ros_msg_name");
 
-  PortMuxGenerator portMuxGen(numMuxes, outputName, toRos, resultsFileFolder);
+  PortMuxGenerator portMuxGen(numMuxes, outputName, toRos, resultsFileFolder, rosMessageName);
   DataConverterGenerator converterGen;
   for(int i = 1; i <= numMuxes; i++) {
     std::string indexString = boost::lexical_cast<std::string>(i);
@@ -157,10 +160,10 @@ if (boost::filesystem::create_directory(dir))
   // bottle creator code generation
   int numFields = pt.get<int>("message.num_fields");
   BottleCreatorGenerator bottleCreatorGen(numFields, rate);
-  handleMessageFields(bottleCreatorGen, pt);  
+  handleMessageFields(bottleCreatorGen, pt);
   std::string bottleCreatorCode = bottleCreatorGen.generateCode();
 
-  // common ending code generation 
+  // common ending code generation
   CommonEndGenerator commonEndGen;
   std::string commonEndCode = commonEndGen.generateCode();
 
