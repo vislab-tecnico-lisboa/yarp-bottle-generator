@@ -10,7 +10,7 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
-void handleMessageChild(ChildGenerator& childGen, boost::property_tree::ptree& pt, std::string messageName) {
+void handleMessageChild(ChildGenerator& childGen, boost::property_tree::ptree& pt, std::string messageName, bool toRos) {
   int numFields = childGen.getNumFields();
 
   for(int i = 1; i <= numFields; i++) {
@@ -22,8 +22,8 @@ void handleMessageChild(ChildGenerator& childGen, boost::property_tree::ptree& p
     if(type == "msg") {
       std::string childMessageName = pt.get<std::string>(messageName + "." + indexString + "_msg");
       int numChildFields = pt.get<int>(childMessageName + ".num_fields");
-      ChildGenerator newChildGen(numChildFields);
-      handleMessageChild(newChildGen, pt, childMessageName);
+      ChildGenerator newChildGen(numChildFields,toRos);
+      handleMessageChild(newChildGen, pt, childMessageName,toRos);
       childGen.addChild(newChildGen);
     } else {
         if(type == "single_value" ||
@@ -45,7 +45,7 @@ void handleMessageChild(ChildGenerator& childGen, boost::property_tree::ptree& p
   }
 }
 
-void handleMessageFields(BottleCreatorGenerator& bottleCreatorGen, boost::property_tree::ptree& pt) {
+void handleMessageFields(BottleCreatorGenerator& bottleCreatorGen, boost::property_tree::ptree& pt, bool toRos) {
   int numFields = bottleCreatorGen.getNumFields();
 
   for(int i = 1; i <= numFields; i++) {
@@ -57,8 +57,8 @@ void handleMessageFields(BottleCreatorGenerator& bottleCreatorGen, boost::proper
     if(type == "msg") {
       std::string childMessageName = pt.get<std::string>("message." + indexString + "_msg");
       int numChildFields = pt.get<int>(childMessageName + ".num_fields");
-      ChildGenerator childGen(numChildFields);
-      handleMessageChild(childGen, pt, childMessageName);
+      ChildGenerator childGen(numChildFields,toRos);
+      handleMessageChild(childGen, pt, childMessageName,toRos);
       bottleCreatorGen.addChild(childGen);
     } else {
         if(type == "single_value" ||
@@ -162,7 +162,7 @@ if (boost::filesystem::create_directory(dir))
   // bottle creator code generation
   int numFields = pt.get<int>("message.num_fields");
   BottleCreatorGenerator bottleCreatorGen(numFields, rate);
-  handleMessageFields(bottleCreatorGen, pt);
+  handleMessageFields(bottleCreatorGen, pt, toRos);
   std::string bottleCreatorCode = bottleCreatorGen.generateCode();
 
   // common ending code generation

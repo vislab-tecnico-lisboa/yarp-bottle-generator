@@ -91,21 +91,39 @@ std::string PortMuxGenerator::generateCode() {
   code += "  outputPort.setWriteOnly();\n";
   if(toRos_)
     code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/"+output_port_name+"\");\n\n";
-  else if (fromRos_)
-    code += "  bool outputOk = outputPort.open(\"/writeBuff \");\n\n";
   else
-    code += "  bool outputOk = outputPort.open(\"" + getOutputName() + "@/yarp/"+output_port_name+"\");\n\n";
+    code += "  bool outputOk = outputPort.open(\"/writeBuff \");\n\n";
+
   if (!fromRos_){
+    code += "  bool allConnected = false;\n";
+    code += "  std::vector<std::vector<bool> > portsConnected;\n";
+    code += "  portsConnected.resize(" + boost::lexical_cast<std::string>(numMuxes_) + ");\n";
+    code += "  int totalConnections=0;\n";
+    for(int j = 0; j < numMuxes_; j++) {
+        code += "    portsConnected[" + boost::lexical_cast<std::string>(j) + "].resize(" + boost::lexical_cast<std::string>(getMuxNumPorts(j)) + ");\n";
+        code += "    portsConnected[" + boost::lexical_cast<std::string>(j) + "].assign(" + boost::lexical_cast<std::string>(getMuxNumPorts(j)) + ",false);\n";
+        code += "    totalConnections += " + boost::lexical_cast<std::string>(getMuxNumPorts(j)) + ";\n";
+    }
+
+    code += "\n";
+    code += "  while (!allConnected){\n";
+    code += "    int connectedNumber=totalConnections;\n";
     for(int j = 1; j <= numMuxes_; j++) {
         std::string muxIndexString = boost::lexical_cast<std::string>(j);
-        for(int i = 1; i <= getMuxNumPorts(j - 1); i++) {
-            std::string partialCode;
+        for(int i = 1; i <= getMuxNumPorts(j-1); i++) {
             std::string indexString = boost::lexical_cast<std::string>(i);
-            partialCode = "  yarp.connect(\"" + extractPortFromString(j - 1, i) + "\", receiverBuff" + indexString + "Mux" + muxIndexString + ".getName());\n";
-            code += partialCode;
+            code += "    if (!portsConnected[" + boost::lexical_cast<std::string>(j-1) +"][" + indexString + "]){\n";
+            code += "      portsConnected[" + boost::lexical_cast<std::string>(j-1) +"][" + indexString + "] = yarp.connect(\"" + extractPortFromString(j-1, i) + "\", receiverBuff" + indexString + "Mux" + muxIndexString + ".getName());\n";
+            code += "      if (!portsConnected[" + boost::lexical_cast<std::string>(j-1) +"][" + indexString + "])\n";
+            code += "        connectedNumber--;\n";
+            code += "    }";
         }
-        code += "\n";
     }
+    code += "    if (connectedNumber == totalConnections)\n";
+    code += "      allConnected = true;\n";
+    code += "    std::cout << \".\\n\";\n";
+    code += "    Time::delay(1);\n";
+    code += "  }";
   }
 
   if(getFromRos()) {

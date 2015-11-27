@@ -5,7 +5,7 @@
 
 class ChildGenerator : public YarpCodeGenerator {
   public:
-    ChildGenerator(int numFields);
+    ChildGenerator(int numFields, bool toRos);
     ~ChildGenerator();
 
     int getNumFields();
@@ -39,9 +39,10 @@ class ChildGenerator : public YarpCodeGenerator {
     std::string getFieldMux(int fieldIndex);
 
     std::string generateCode();
-    
+
   private:
     int numFields_;
+    bool toRos_;
     int listIndex_;
     std::string parentName_;
     std::vector<ChildGenerator> children_;
