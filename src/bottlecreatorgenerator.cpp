@@ -5,11 +5,12 @@
 #include <boost/algorithm/string.hpp>
 
 // Constructor and destructor
-BottleCreatorGenerator::BottleCreatorGenerator(int numFields, const double & rate_) :
+BottleCreatorGenerator::BottleCreatorGenerator(int numFields, const double & rate_, bool toRos) :
     numFields_(numFields),
     rate(rate_),
     period(1/rate),
-    listIndex_(0) {
+    listIndex_(0),
+    toRos_(toRos) {
     std::cout << "Creating BottleCreatorGenerator." << std::endl;
 }
 
@@ -127,20 +128,36 @@ std::string BottleCreatorGenerator::handleFieldGeneration(int fieldIndex) {
     } else if(type == "timestamp") {
         listIndex_++;
         listIndexString = boost::lexical_cast<std::string>(listIndex_);
-        code += "    double dummy;\n";
-        code += "    double frac=modf(timestamp,&dummy);\n";
-        code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
-        code += "    list_" + listIndexString + ".add((int)timestamp);\n";
-        code += "    list_" + listIndexString + ".add((int)round(frac*pow(10,9)));\n\n";
+        if (toRos_){
+            code += "    double dummy;\n";
+            code += "    double frac=modf(timestamp,&dummy);\n";
+            code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
+            code += "    list_" + listIndexString + ".add((int)timestamp);\n";
+            code += "    list_" + listIndexString + ".add((int)round(frac*pow(10,9)));\n\n";
+        }
+        else {
+            code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
+            code += "    list_" + listIndexString + ".add(counter);\n";
+            code += "    list_" + listIndexString + ".add(timestamp);\n";
+        }
+
     } else if(type == "counter") {
         code += "    message.add(counter);\n\n";
     } else if(type == "mux") {
         listIndex_++;
         listIndexString = boost::lexical_cast<std::string>(listIndex_);
-        code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
-        code += "    for(int i = 0; i < " + getFieldMux(fieldIndex) + ".size(); i++) {\n";
-        code += "      list_" + listIndexString + ".add(" + getFieldMux(fieldIndex) + ".get(i));\n";
-        code += "    }\n\n";
+        if (toRos_){
+            code += "    Bottle& list_" + listIndexString + " = message.addList();\n";
+            code += "    for(int i = 0; i < " + getFieldMux(fieldIndex) + ".size(); i++) {\n";
+            code += "      list_" + listIndexString + ".add(" + getFieldMux(fieldIndex) + ".get(i));\n";
+            code += "    }\n\n";
+        }
+        else {
+            code += "    for(int i = 0; i < " + getFieldMux(fieldIndex) + ".size(); i++) {\n";
+            code += "       message.add(" + getFieldMux(fieldIndex) + ".get(i));\n";
+            code += "    }\n\n";
+        }
+
     } else if(type == "msg") {
         listIndex_++;
         listIndexString = boost::lexical_cast<std::string>(listIndex_);

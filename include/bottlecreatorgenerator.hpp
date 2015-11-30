@@ -6,7 +6,7 @@
 
 class BottleCreatorGenerator : public YarpCodeGenerator {
   public:
-    BottleCreatorGenerator(int numFields, const double & rate_);
+    BottleCreatorGenerator(int numFields, const double & rate_, bool toRos);
     ~BottleCreatorGenerator();
 
     int getNumFields();
@@ -38,10 +38,11 @@ class BottleCreatorGenerator : public YarpCodeGenerator {
     std::string getFieldMux(int fieldIndex);
 
     std::string generateCode();
-    
+
   private:
     int numFields_;
     int listIndex_;
+    bool toRos_;
     std::vector<ChildGenerator> children_;
     std::vector<std::string> fieldsType_;
     std::vector<std::string> fieldsMsg_;

@@ -161,7 +161,7 @@ if (boost::filesystem::create_directory(dir))
 
   // bottle creator code generation
   int numFields = pt.get<int>("message.num_fields");
-  BottleCreatorGenerator bottleCreatorGen(numFields, rate);
+  BottleCreatorGenerator bottleCreatorGen(numFields, rate, toRos);
   handleMessageFields(bottleCreatorGen, pt, toRos);
   std::string bottleCreatorCode = bottleCreatorGen.generateCode();
 
