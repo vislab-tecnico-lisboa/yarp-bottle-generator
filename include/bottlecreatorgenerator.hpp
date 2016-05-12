@@ -4,8 +4,16 @@
 #include "yarpcodegenerator.hpp"
 #include "childgenerator.hpp"
 
+/**
+  * A constructor.
+  * A more elaborate description of the constructor.
+*/
 class BottleCreatorGenerator : public YarpCodeGenerator {
   public:
+    /**
+      * A constructor.
+      * A more elaborate description of the constructor.
+    */
     BottleCreatorGenerator(int numFields, const double & rate_, bool toRos);
     ~BottleCreatorGenerator();
 

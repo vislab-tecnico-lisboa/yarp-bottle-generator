@@ -4,7 +4,6 @@
 #include <boost/lexical_cast.hpp>
 #include <boost/algorithm/string.hpp>
 
-// Constructor and destructor
 BottleCreatorGenerator::BottleCreatorGenerator(int numFields, const double & rate_, bool toRos) :
     numFields_(numFields),
     rate(rate_),

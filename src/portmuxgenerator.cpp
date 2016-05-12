@@ -173,10 +173,12 @@ std::string PortMuxGenerator::generateCode() {
   return code;
 }
 
-/****
- ** Extract port name from wrap of ports names.
- ** Requires names separated by commas and no spaces between them.
- ****/
+/**
+ * Retrieve port/topic name from wrap of ports names.
+ * Requires names separated by commas and no spaces between them.
+ * @param muxIndex Hub's index in the vector of Hubs
+ * @param portIndex Port's index in the ports string
+ */
 std::string PortMuxGenerator::extractPortFromString(int muxIndex, int portIndex) {
   std::string port;
 
