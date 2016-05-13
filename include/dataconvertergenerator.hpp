@@ -2,7 +2,9 @@
 #define DATACONVERTER_GENERATOR_HPP
 #include <vector>
 #include "yarpcodegenerator.hpp"
-
+/**
+ * Class that generates the code of the converter function for the elements of a hub
+ */
 class DataConverterGenerator : public YarpCodeGenerator {
   public:
     DataConverterGenerator();
@@ -23,8 +25,8 @@ class DataConverterGenerator : public YarpCodeGenerator {
     std::string generateCode();
     
   private:
-    std::vector<std::string> function_;
-    std::vector<bool> verbose_;
+    std::vector<std::string> function_; /**< converter function name */
+    std::vector<bool> verbose_;/**< Verbose flag */
 
     std::string functionToString(int converterIndex);
 };

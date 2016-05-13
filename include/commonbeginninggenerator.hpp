@@ -16,6 +16,7 @@ class CommonBeginningGenerator : public YarpCodeGenerator {
     */
     ~CommonBeginningGenerator();
     /**
+      * Generates the top part of the main file
       * @return String that contains the include headers and main function
     */
     std::string generateCode();

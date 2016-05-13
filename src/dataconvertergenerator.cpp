@@ -49,12 +49,12 @@ std::string DataConverterGenerator::generateCode() {
   return code;
 }
 
-/****
- ** Returns the string containing the code of the converter function.
- ** One can add new functions to this method in order to expand the functionality of the converter,
- ** but try to document what kind of objects should the mux result have.
- ** Example: the function deg_to_rad expects a mutex containing doubles.
- ****/
+/**
+ * Returns the string containing the code of the converter function.
+ * One can add new functions to this method in order to expand the functionality of the converter,
+ * but try to document what kind of objects should the mux result have.
+ * Example: the function deg_to_rad expects a mutex containing doubles.
+ */
  std::string DataConverterGenerator::functionToString(int converterIndex) { // >data[6] / (180/3.1415926));
   std::string functionCode;
   std::string indexString = boost::lexical_cast<std::string>(converterIndex + 1);

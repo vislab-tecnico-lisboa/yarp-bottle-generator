@@ -37,12 +37,30 @@ class PortMuxGenerator : public YarpCodeGenerator {
 
     void addMuxNumPorts(int numPorts);
 
+    /**
+      * Adds the ports/topics string of a hub
+      * @param ports String with comma separated ports/topics
+    */
     void addMuxPorts(std::string ports);
 
+    /**
+      * Returns the number of ports read by the hub at muxIndex in the hub vector
+      * @param muxIndex Hub index in the Hub vector
+      * @return int Number of ports/topics read by the hub
+    */
     int getMuxNumPorts(int muxIndex);
 
+    /**
+      * Returns the string that contains all the YARP ports/ROS topics for the hub muxIndex
+      * @param muxIndex Hub index in the Hub vector
+      * @return String that contains the YARP ports/ROS topics separated by commas
+    */
     std::string getMuxPorts(int muxIndex);
 
+    /**
+      * Generates the code that connects to all the YARP ports/ROS topics
+      * @return String that contains the code for YARP port creation, and connection to the input YARP ports/ROS topics
+    */
     std::string generateCode();
 
   private:
