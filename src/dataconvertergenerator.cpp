@@ -54,6 +54,8 @@ std::string DataConverterGenerator::generateCode() {
  * One can add new functions to this method in order to expand the functionality of the converter,
  * but try to document what kind of objects should the mux result have.
  * Example: the function deg_to_rad expects a mutex containing doubles.
+ * @param converterIndex identifier in the array of functions of this particular hub
+ * @return std::string line(s) of code that performs the data conversion
  */
  std::string DataConverterGenerator::functionToString(int converterIndex) { // >data[6] / (180/3.1415926));
   std::string functionCode;
