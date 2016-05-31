@@ -227,3 +227,6 @@ if (boost::filesystem::create_directory(dir))
   cmakeGeneratedFile.close();
   return 0;
 }
+/**
+@file main.cpp
+*/
