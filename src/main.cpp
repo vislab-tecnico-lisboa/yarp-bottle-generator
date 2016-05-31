@@ -10,6 +10,23 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
+/*! \mainpage
+ *
+ * \section intro_sec Brief description
+ *
+ * This project generates C++ code from a configuration text file that describes 
+ * the set of inputs (i.e. ports/topics and their types), data conversions that may be applied to the inputs, 
+ * and a detailed specification of the output (i.e. list of types, hierarchically defined). The yarp 
+ * bottle generator parses a configuration file creates a C++ file. After compiling the C++ file and
+ * subsequent execution, the result acts as a bridge between YARP and ROS. 
+ * The generated code reads data from several inputs (YARP ports or ROS topics), and constructs a YARP Bottle 
+ * as output. Note that the yarp bottle generator has two modes of operation: 
+ * (i) From ROS topics to a YARP port (ROS-YARP mode) and (ii) from YARP ports to a ROS topic (YARP-ROS mode). 
+ * On one hand, reading from/sending to YARP ports is straightforward because our code generator is based on 
+ * YARP bottles. On the other hand, reading from/sending to ROS topics needs an additional conversion, which 
+ * is handled by the run-time YARP to ROS converter yarpidl_rosmsg.
+ */
+
 /**
   * Initialize the child objects (tree leaves) from the configuration file
   * @param childGen ChildGenerator object reference to be initialized from the configuration file
