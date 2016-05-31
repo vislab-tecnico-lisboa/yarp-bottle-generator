@@ -124,7 +124,11 @@ int main(int argc, char* argv[])
     return 0;
   }
 
-//boost::filesystem::path dir(generatorDir +fixedResultsPath);
+boost::filesystem::path dir_res(generatorDir +fixedResultsPath);
+if (boost::filesystem::create_directory(dir_res))
+    std::cout << "Created results directory" << "\n";
+else
+    std::cout << "results directory created already" << "\n";
 boost::filesystem::path dir(generatorDir +fixedResultsPath+ resultsFileFolder);
 if (boost::filesystem::create_directory(dir))
     std::cout << "Success" << "\n";
