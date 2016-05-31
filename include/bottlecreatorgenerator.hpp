@@ -5,7 +5,7 @@
 #include "childgenerator.hpp"
 /**
   * Class that generates the code for building the message and sending it through the network (YARP port/ROS topic)
-  * This class represents the top level of the message hierarchy
+  * This class represents the top level of the message hierarchy (root of the tree)
 */
 class BottleCreatorGenerator : public YarpCodeGenerator {
   public:
@@ -16,6 +16,9 @@ class BottleCreatorGenerator : public YarpCodeGenerator {
       * @param toRos Boolean flag to know the type of output (ROS message or YARP Bottle)
     */
     BottleCreatorGenerator(int numFields, const double & rate_, bool toRos);
+    /**
+      * Destructor
+    */
     ~BottleCreatorGenerator();
 
     int getNumFields();

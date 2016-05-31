@@ -4,9 +4,18 @@
 
 class CommonEndGenerator : public YarpCodeGenerator {
   public:
+    /**
+      * Constructor
+    */
     CommonEndGenerator();
+    /**
+      * Destructor
+    */
     ~CommonEndGenerator();
-
+    /**
+      * Generates the closing bracelets and main return
+      * @return String that contains the last lines of code
+    */
     std::string generateCode();
 };
 

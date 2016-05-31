@@ -10,6 +10,13 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/filesystem.hpp>
+/**
+  * Initialize the child objects (tree leaves) from the configuration file
+  * @param childGen ChildGenerator object reference to be initialized from the configuration file
+  * @param pt boost::property_tree that contains the configuration file data
+  * @param messageName ROS message name, used when the boolean toRos is true
+  * @param toRos Boolean flag to know the type of output 
+*/
 void handleMessageChild(ChildGenerator& childGen, boost::property_tree::ptree& pt, std::string messageName, bool toRos) {
   int numFields = childGen.getNumFields();
 
@@ -44,7 +51,12 @@ void handleMessageChild(ChildGenerator& childGen, boost::property_tree::ptree& p
     std::cout << "[field number " << i << "] mux_: " << childGen.getFieldMux(i - 1) << std::endl;
   }
 }
-
+/**
+  * Initialize the objects at the top of the hierarchy (members of the root) from the configuration file
+  * @param bottleCreatorGen BottleCreatorGenerator object reference to be initialized from the configuration file
+  * @param pt boost::property_tree that contains the configuration file data
+  * @param toRos Boolean flag to know the type of output 
+*/
 void handleMessageFields(BottleCreatorGenerator& bottleCreatorGen, boost::property_tree::ptree& pt, bool toRos) {
   int numFields = bottleCreatorGen.getNumFields();
 
@@ -79,7 +91,9 @@ void handleMessageFields(BottleCreatorGenerator& bottleCreatorGen, boost::proper
     std::cout << "[field number " << i << "] mux_: " << bottleCreatorGen.getFieldMux(i - 1) << std::endl;
   }
 }
-
+/**
+  * Function that prints out the help
+*/
 void info()
 {
 	std::cout << "args:\n\t[0]: configuration file name" << std::endl;
@@ -110,7 +124,7 @@ int main(int argc, char* argv[])
     return 0;
   }
 
-
+//boost::filesystem::path dir(generatorDir +fixedResultsPath);
 boost::filesystem::path dir(generatorDir +fixedResultsPath+ resultsFileFolder);
 if (boost::filesystem::create_directory(dir))
     std::cout << "Success" << "\n";
@@ -124,7 +138,7 @@ if (boost::filesystem::create_directory(dir))
   CommonBeginningGenerator commonBeginGen;
   std::string commonBeginCode = commonBeginGen.generateCode();
 
-  // multiplexers code generation
+  // multiplexers (i.e. hubs) code generation
   int numMuxes = pt.get<int>("general.num_mux");
   std::string outputName = pt.get<std::string>("general.output_name");
   bool toRos = pt.get<bool>("general.to_ros");
@@ -136,6 +150,7 @@ if (boost::filesystem::create_directory(dir))
 
   PortMuxGenerator portMuxGen(numMuxes, outputName, toRos, resultsFileFolder, rosMessageName, fromRos);
   DataConverterGenerator converterGen;
+  // Generating code for reading the data from the hubs and call converter function
   for(int i = 1; i <= numMuxes; i++) {
     std::string indexString = boost::lexical_cast<std::string>(i);
     int numPorts = pt.get<int>("mux" + indexString + ".num_ports");
@@ -169,6 +184,7 @@ if (boost::filesystem::create_directory(dir))
   CommonEndGenerator commonEndGen;
   std::string commonEndCode = commonEndGen.generateCode();
 
+  // Writing the generated strings to the text file
   std::ofstream generatedFile;
   generatedFile.open(outputFileLocation.c_str());
 
@@ -179,6 +195,7 @@ if (boost::filesystem::create_directory(dir))
   generatedFile << commonEndCode;
 
   generatedFile.close();
+  // Creating the CMakeLists.txtg file and generating its code
   CMakeFileGenerator cmakeFileGen;
   cmakeFileGen.cpp_file_name = resultsFileFolder;
   std::string cmakeFileCode = cmakeFileGen.generateCode();

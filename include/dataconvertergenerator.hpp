@@ -7,6 +7,9 @@
  */
 class DataConverterGenerator : public YarpCodeGenerator {
   public:
+    /**
+      * Constructor
+    */
     DataConverterGenerator();
     ~DataConverterGenerator();
 
