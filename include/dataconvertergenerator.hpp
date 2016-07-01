@@ -3,7 +3,7 @@
 #include <vector>
 #include "yarpcodegenerator.hpp"
 /**
- * Class that generates the code of the converter function for the elements of a hub
+ * Header of the class that generates the code of the converter function for the elements of a hub
  */
 class DataConverterGenerator : public YarpCodeGenerator {
   public:

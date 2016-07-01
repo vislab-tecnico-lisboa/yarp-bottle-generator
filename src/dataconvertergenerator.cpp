@@ -3,7 +3,10 @@
 #include "dataconvertergenerator.hpp"
 #include <boost/lexical_cast.hpp>
 
-// Constructor and destructor
+/**
+ * Implementation of the class that generates the code of the converter function for the elements of a hub
+ */
+
 DataConverterGenerator::DataConverterGenerator() {
   std::cout << "Creating DataConverterGenerator." << std::endl;
 }
@@ -57,6 +60,7 @@ std::string DataConverterGenerator::generateCode() {
  * @param converterIndex identifier in the array of functions of this particular hub
  * @return std::string line(s) of code that performs the data conversion
  */
+@code 
  std::string DataConverterGenerator::functionToString(int converterIndex) { // >data[6] / (180/3.1415926));
   std::string functionCode;
   std::string indexString = boost::lexical_cast<std::string>(converterIndex + 1);
