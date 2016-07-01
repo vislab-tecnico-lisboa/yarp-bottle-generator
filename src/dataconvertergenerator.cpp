@@ -85,3 +85,6 @@ std::string DataConverterGenerator::generateCode() {
 
   return functionCode;
  }
+/**
+@file dataconvertergenerator.cpp
+*/
