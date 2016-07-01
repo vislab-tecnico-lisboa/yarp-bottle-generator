@@ -59,8 +59,7 @@ std::string DataConverterGenerator::generateCode() {
  * Example: the function deg_to_rad expects a mutex containing doubles.
  * @param converterIndex identifier in the array of functions of this particular hub
  * @return std::string line(s) of code that performs the data conversion
- */
-@code 
+*/
  std::string DataConverterGenerator::functionToString(int converterIndex) { // >data[6] / (180/3.1415926));
   std::string functionCode;
   std::string indexString = boost::lexical_cast<std::string>(converterIndex + 1);
