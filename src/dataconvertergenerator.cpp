@@ -1,3 +1,5 @@
+#ifndef DATACONVERTER_GENERATOR_CPP
+#define DATACONVERTER_GENERATOR_CPP
 #include <iostream>
 #include <string>
 #include "dataconvertergenerator.hpp"
@@ -84,6 +86,4 @@ std::string DataConverterGenerator::generateCode() {
 
   return functionCode;
  }
-/**
-@file dataconvertergenerator.cpp
-*/
+#endif //DATACONVERTER_GENERATOR_CPP
