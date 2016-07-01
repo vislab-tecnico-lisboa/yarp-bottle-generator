@@ -67,6 +67,7 @@ std::string DataConverterGenerator::generateCode() {
       functionCode += "      std::cout << \"value on index \" << i << \": \" << mux" + indexString + ".get(i).asDouble() << std::endl;\n";
     }
   } else if(getConverterFunction(converterIndex) == "none_double") {
+    functionCode = "      mux" + indexString + ".get(i) = mux" + indexString + ".get(i).asDouble();\n";
       if(getConverterVerbose(converterIndex)) {
         functionCode += "      std::cout << \"value on index \" << i << \": \" << mux" + indexString + ".get(i).asDouble() << std::endl;\n";
       }
