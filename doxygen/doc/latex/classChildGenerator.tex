@@ -1,0 +1,224 @@
+\hypertarget{classChildGenerator}{\section{Child\-Generator Class Reference}
+\label{classChildGenerator}\index{Child\-Generator@{Child\-Generator}}
+}
+
+
+{\ttfamily \#include $<$childgenerator.\-hpp$>$}
+
+Inheritance diagram for Child\-Generator\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classChildGenerator}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classChildGenerator_ae32dcca9e5fdf68591c0234ac5892efb}{Child\-Generator} (int num\-Fields, bool to\-Ros)
+\item 
+\hyperlink{classChildGenerator_ae02e5d64e580bb25b590ca7558efaa0a}{$\sim$\-Child\-Generator} ()
+\item 
+\hypertarget{classChildGenerator_ae6581386da55d6cd9792fd0eb0715442}{int {\bfseries get\-Num\-Fields} ()}\label{classChildGenerator_ae6581386da55d6cd9792fd0eb0715442}
+
+\item 
+\hypertarget{classChildGenerator_a92c28e7e0312810f1db1302737c3a4f6}{std\-::vector$<$ \hyperlink{classChildGenerator}{Child\-Generator} $>$ {\bfseries get\-Children} ()}\label{classChildGenerator_a92c28e7e0312810f1db1302737c3a4f6}
+
+\item 
+\hypertarget{classChildGenerator_a5ec4534067ff985b052273f69db8b4af}{std\-::vector$<$ std\-::string $>$ {\bfseries get\-Fields\-Type} ()}\label{classChildGenerator_a5ec4534067ff985b052273f69db8b4af}
+
+\item 
+\hypertarget{classChildGenerator_aabc717278731ef281f8015b94a529786}{std\-::vector$<$ std\-::string $>$ {\bfseries get\-Fields\-Msg} ()}\label{classChildGenerator_aabc717278731ef281f8015b94a529786}
+
+\item 
+\hypertarget{classChildGenerator_a3457cb5b97dfea562dfa0dd64c5dcbeb}{std\-::vector$<$ std\-::string $>$ {\bfseries get\-Fields\-Mux} ()}\label{classChildGenerator_a3457cb5b97dfea562dfa0dd64c5dcbeb}
+
+\item 
+\hypertarget{classChildGenerator_af5f270a920e3ca8b67d6a055552fd9f8}{void {\bfseries set\-Parent\-Name} (std\-::string parent\-Name)}\label{classChildGenerator_af5f270a920e3ca8b67d6a055552fd9f8}
+
+\item 
+\hypertarget{classChildGenerator_a89df978421779b69ac49ce1ca005dd07}{void {\bfseries add\-Child} (\hyperlink{classChildGenerator}{Child\-Generator} \&child)}\label{classChildGenerator_a89df978421779b69ac49ce1ca005dd07}
+
+\item 
+\hypertarget{classChildGenerator_aa651c4d61b61b4e4db9061256996026c}{void {\bfseries add\-Field\-Type} (std\-::string type)}\label{classChildGenerator_aa651c4d61b61b4e4db9061256996026c}
+
+\item 
+\hypertarget{classChildGenerator_a4f250d173bc5495679e0bf50b6b9bfd0}{void {\bfseries add\-Field\-Msg} (std\-::string msg)}\label{classChildGenerator_a4f250d173bc5495679e0bf50b6b9bfd0}
+
+\item 
+\hypertarget{classChildGenerator_a8e6cfd5d9573009475a1154d979e8e59}{void {\bfseries add\-Field\-Mux} (std\-::string mux)}\label{classChildGenerator_a8e6cfd5d9573009475a1154d979e8e59}
+
+\item 
+\hypertarget{classChildGenerator_a52e17e0807904531c7d74c3312c419c0}{void {\bfseries remove\-First\-Child} ()}\label{classChildGenerator_a52e17e0807904531c7d74c3312c419c0}
+
+\item 
+\hypertarget{classChildGenerator_aac1dd1a96778db140c1a4c60df40608b}{\hyperlink{classChildGenerator}{Child\-Generator} \& {\bfseries get\-First\-Child} ()}\label{classChildGenerator_aac1dd1a96778db140c1a4c60df40608b}
+
+\item 
+\hypertarget{classChildGenerator_aafdee6300b9422ce5521655bcd7ccb9f}{std\-::string {\bfseries get\-Field\-Type} (int field\-Index)}\label{classChildGenerator_aafdee6300b9422ce5521655bcd7ccb9f}
+
+\item 
+\hypertarget{classChildGenerator_ac2d36434a7f395b245f7e0719b5cba6b}{std\-::string {\bfseries get\-Field\-Msg} (int field\-Index)}\label{classChildGenerator_ac2d36434a7f395b245f7e0719b5cba6b}
+
+\item 
+\hypertarget{classChildGenerator_af05c7bf865614b4e047737969f1bf2ab}{std\-::string {\bfseries get\-Field\-Mux} (int field\-Index)}\label{classChildGenerator_af05c7bf865614b4e047737969f1bf2ab}
+
+\item 
+std\-::string \hyperlink{classChildGenerator_a2dd3b214edfe346d16c8c2cdc708cc52}{generate\-Code} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::string \hyperlink{classChildGenerator_a714d69356bb97be6914758a8d5c7636c}{handle\-Field\-Generation} (int field\-Index)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classChildGenerator_ad485f88e3559a3643c700f8c39e76035}{num\-Fields\-\_\-}
+\item 
+bool \hyperlink{classChildGenerator_a7b1a36a6a5679fbd2d54682b6cb0527b}{to\-Ros\-\_\-}
+\item 
+\hypertarget{classChildGenerator_a2d90e8fefb81ef4eb34c7d114e23baae}{int {\bfseries list\-Index\-\_\-}}\label{classChildGenerator_a2d90e8fefb81ef4eb34c7d114e23baae}
+
+\item 
+\hypertarget{classChildGenerator_a7958558445170f12ee568c7b3c730b4b}{std\-::string {\bfseries parent\-Name\-\_\-}}\label{classChildGenerator_a7958558445170f12ee568c7b3c730b4b}
+
+\item 
+std\-::vector$<$ \hyperlink{classChildGenerator}{Child\-Generator} $>$ \hyperlink{classChildGenerator_ab54bc0742dc6acaf310afb296a154a96}{children\-\_\-}
+\item 
+std\-::vector$<$ std\-::string $>$ \hyperlink{classChildGenerator_a410cf2b350df1977ac4679bb608859cf}{fields\-Type\-\_\-}
+\item 
+std\-::vector$<$ std\-::string $>$ \hyperlink{classChildGenerator_a6e4d1e3a323027b3e4277b385b483688}{fields\-Msg\-\_\-}
+\item 
+std\-::vector$<$ std\-::string $>$ \hyperlink{classChildGenerator_aeb69f47a9b38b931c8c8fdef61d0a4eb}{fields\-Mux\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that generates the code for building the message and sending it through the network (Y\-A\-R\-P port/\-R\-O\-S topic) This class represents the any leaf of the message hierarchy (not the root of the tree) 
+
+Definition at line 9 of file childgenerator.\-hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classChildGenerator_ae32dcca9e5fdf68591c0234ac5892efb}{\index{Child\-Generator@{Child\-Generator}!Child\-Generator@{Child\-Generator}}
+\index{Child\-Generator@{Child\-Generator}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{Child\-Generator}]{\setlength{\rightskip}{0pt plus 5cm}Child\-Generator\-::\-Child\-Generator (
+\begin{DoxyParamCaption}
+\item[{int}]{num\-Fields, }
+\item[{bool}]{to\-Ros}
+\end{DoxyParamCaption}
+)}}\label{classChildGenerator_ae32dcca9e5fdf68591c0234ac5892efb}
+Constructor 
+\begin{DoxyParams}{Parameters}
+{\em num\-Fields} & Number of items (either simple types or messages) of the message \\
+\hline
+{\em to\-Ros} & Boolean flag to know the type of output (R\-O\-S message or Y\-A\-R\-P Bottle) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 8 of file childgenerator.\-cpp.
+
+\hypertarget{classChildGenerator_ae02e5d64e580bb25b590ca7558efaa0a}{\index{Child\-Generator@{Child\-Generator}!$\sim$\-Child\-Generator@{$\sim$\-Child\-Generator}}
+\index{$\sim$\-Child\-Generator@{$\sim$\-Child\-Generator}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{$\sim$\-Child\-Generator}]{\setlength{\rightskip}{0pt plus 5cm}Child\-Generator\-::$\sim$\-Child\-Generator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classChildGenerator_ae02e5d64e580bb25b590ca7558efaa0a}
+Destructor 
+
+Definition at line 13 of file childgenerator.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classChildGenerator_a2dd3b214edfe346d16c8c2cdc708cc52}{\index{Child\-Generator@{Child\-Generator}!generate\-Code@{generate\-Code}}
+\index{generate\-Code@{generate\-Code}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{generate\-Code}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Child\-Generator\-::generate\-Code (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classChildGenerator_a2dd3b214edfe346d16c8c2cdc708cc52}
+Generates the code that builds the message for the current node in the message hierarchy and all its leaves \begin{DoxyReturn}{Returns}
+String that contains the code for message building and sending 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classYarpCodeGenerator_ad4247b4dad2a694c3799d5a6968faa41}{Yarp\-Code\-Generator}.
+
+
+
+Definition at line 77 of file childgenerator.\-cpp.
+
+\hypertarget{classChildGenerator_a714d69356bb97be6914758a8d5c7636c}{\index{Child\-Generator@{Child\-Generator}!handle\-Field\-Generation@{handle\-Field\-Generation}}
+\index{handle\-Field\-Generation@{handle\-Field\-Generation}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{handle\-Field\-Generation}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Child\-Generator\-::handle\-Field\-Generation (
+\begin{DoxyParamCaption}
+\item[{int}]{field\-Index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classChildGenerator_a714d69356bb97be6914758a8d5c7636c}
+Generates the code that builds the message for the current node in the hierarchy, considering all its children in the tree 
+\begin{DoxyParams}{Parameters}
+{\em index} & at the \hyperlink{classChildGenerator}{Child\-Generator} std\-::vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String that contains the code for message building 
+\end{DoxyReturn}
+
+
+Definition at line 87 of file childgenerator.\-cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classChildGenerator_ab54bc0742dc6acaf310afb296a154a96}{\index{Child\-Generator@{Child\-Generator}!children\-\_\-@{children\-\_\-}}
+\index{children\-\_\-@{children\-\_\-}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{children\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<${\bf Child\-Generator}$>$ Child\-Generator\-::children\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classChildGenerator_ab54bc0742dc6acaf310afb296a154a96}
+Vector of \hyperlink{classChildGenerator}{Child\-Generator} class, that handles built-\/in (primitive) messages and arrays of built-\/in messages 
+
+Definition at line 63 of file childgenerator.\-hpp.
+
+\hypertarget{classChildGenerator_a6e4d1e3a323027b3e4277b385b483688}{\index{Child\-Generator@{Child\-Generator}!fields\-Msg\-\_\-@{fields\-Msg\-\_\-}}
+\index{fields\-Msg\-\_\-@{fields\-Msg\-\_\-}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{fields\-Msg\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$std\-::string$>$ Child\-Generator\-::fields\-Msg\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classChildGenerator_a6e4d1e3a323027b3e4277b385b483688}
+Vector of std\-::string that stores \char`\"{}single\-\_\-value\char`\"{} or \char`\"{}list\char`\"{} if that is the type of the item 
+
+Definition at line 65 of file childgenerator.\-hpp.
+
+\hypertarget{classChildGenerator_aeb69f47a9b38b931c8c8fdef61d0a4eb}{\index{Child\-Generator@{Child\-Generator}!fields\-Mux\-\_\-@{fields\-Mux\-\_\-}}
+\index{fields\-Mux\-\_\-@{fields\-Mux\-\_\-}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{fields\-Mux\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$std\-::string$>$ Child\-Generator\-::fields\-Mux\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classChildGenerator_aeb69f47a9b38b931c8c8fdef61d0a4eb}
+Vector of std\-::string that stores \char`\"{}mux\char`\"{} if that is the type of the item 
+
+Definition at line 66 of file childgenerator.\-hpp.
+
+\hypertarget{classChildGenerator_a410cf2b350df1977ac4679bb608859cf}{\index{Child\-Generator@{Child\-Generator}!fields\-Type\-\_\-@{fields\-Type\-\_\-}}
+\index{fields\-Type\-\_\-@{fields\-Type\-\_\-}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{fields\-Type\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$std\-::string$>$ Child\-Generator\-::fields\-Type\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classChildGenerator_a410cf2b350df1977ac4679bb608859cf}
+Vector of std\-::string that contains all the message types at the current node in the message hierarchy, read from the configuration file 
+
+Definition at line 64 of file childgenerator.\-hpp.
+
+\hypertarget{classChildGenerator_ad485f88e3559a3643c700f8c39e76035}{\index{Child\-Generator@{Child\-Generator}!num\-Fields\-\_\-@{num\-Fields\-\_\-}}
+\index{num\-Fields\-\_\-@{num\-Fields\-\_\-}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{num\-Fields\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int Child\-Generator\-::num\-Fields\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classChildGenerator_ad485f88e3559a3643c700f8c39e76035}
+Number of items in the current node 
+
+Definition at line 59 of file childgenerator.\-hpp.
+
+\hypertarget{classChildGenerator_a7b1a36a6a5679fbd2d54682b6cb0527b}{\index{Child\-Generator@{Child\-Generator}!to\-Ros\-\_\-@{to\-Ros\-\_\-}}
+\index{to\-Ros\-\_\-@{to\-Ros\-\_\-}!ChildGenerator@{Child\-Generator}}
+\subsubsection[{to\-Ros\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool Child\-Generator\-::to\-Ros\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classChildGenerator_a7b1a36a6a5679fbd2d54682b6cb0527b}
+Boolean flag to know the type of output 
+
+Definition at line 60 of file childgenerator.\-hpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+childgenerator.\-hpp\item 
+childgenerator.\-cpp\end{DoxyCompactItemize}

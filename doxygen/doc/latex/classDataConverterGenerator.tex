@@ -1,0 +1,136 @@
+\hypertarget{classDataConverterGenerator}{\section{Data\-Converter\-Generator Class Reference}
+\label{classDataConverterGenerator}\index{Data\-Converter\-Generator@{Data\-Converter\-Generator}}
+}
+
+
+{\ttfamily \#include $<$dataconvertergenerator.\-hpp$>$}
+
+Inheritance diagram for Data\-Converter\-Generator\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classDataConverterGenerator}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classDataConverterGenerator_a039ab1bff2a8c13f37f994fd4e8b6c57}{Data\-Converter\-Generator} ()
+\item 
+\hypertarget{classDataConverterGenerator_acdf2a94539b4620df361d752133456d3}{std\-::vector$<$ std\-::string $>$ {\bfseries get\-Function} ()}\label{classDataConverterGenerator_acdf2a94539b4620df361d752133456d3}
+
+\item 
+\hypertarget{classDataConverterGenerator_ace67193c92c3b283a147682312e7a7c7}{std\-::vector$<$ bool $>$ {\bfseries get\-Verbose} ()}\label{classDataConverterGenerator_ace67193c92c3b283a147682312e7a7c7}
+
+\item 
+\hypertarget{classDataConverterGenerator_a4cfb90e1a29cca7c12e7c93920df4d0d}{void {\bfseries add\-Converter\-Function} (std\-::string function)}\label{classDataConverterGenerator_a4cfb90e1a29cca7c12e7c93920df4d0d}
+
+\item 
+\hypertarget{classDataConverterGenerator_a07715c14eac58aaf162f5b7ff36d5ba9}{void {\bfseries add\-Converter\-Verbose} (bool verbose)}\label{classDataConverterGenerator_a07715c14eac58aaf162f5b7ff36d5ba9}
+
+\item 
+\hypertarget{classDataConverterGenerator_a1507dd8a542780ffeb277a2bf0a4fbba}{std\-::string {\bfseries get\-Converter\-Function} (int converter\-Index)}\label{classDataConverterGenerator_a1507dd8a542780ffeb277a2bf0a4fbba}
+
+\item 
+\hypertarget{classDataConverterGenerator_af74c8edbedcf06eaf33fdccbc6beddac}{bool {\bfseries get\-Converter\-Verbose} (int converter\-Index)}\label{classDataConverterGenerator_af74c8edbedcf06eaf33fdccbc6beddac}
+
+\item 
+std\-::string \hyperlink{classDataConverterGenerator_a1c3df6e22d230512a9091184f315b9ef}{generate\-Code} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::string \hyperlink{classDataConverterGenerator_a64845e3ce285461b22eabb32af5899ff}{function\-To\-String} (int converter\-Index)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\-::vector$<$ std\-::string $>$ \hyperlink{classDataConverterGenerator_a44c9695737d8f682c98f7310351dd74e}{function\-\_\-}
+\item 
+std\-::vector$<$ bool $>$ \hyperlink{classDataConverterGenerator_aad0f91e34facb40b7540ab39a0f974bd}{verbose\-\_\-}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Header of the class that generates the code of the converter function for the elements of a hub 
+
+Definition at line 8 of file dataconvertergenerator.\-hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classDataConverterGenerator_a039ab1bff2a8c13f37f994fd4e8b6c57}{\index{Data\-Converter\-Generator@{Data\-Converter\-Generator}!Data\-Converter\-Generator@{Data\-Converter\-Generator}}
+\index{Data\-Converter\-Generator@{Data\-Converter\-Generator}!DataConverterGenerator@{Data\-Converter\-Generator}}
+\subsubsection[{Data\-Converter\-Generator}]{\setlength{\rightskip}{0pt plus 5cm}Data\-Converter\-Generator\-::\-Data\-Converter\-Generator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classDataConverterGenerator_a039ab1bff2a8c13f37f994fd4e8b6c57}
+Constructor
+
+Implementation of the class that generates the code of the converter function for the elements of a hub 
+
+Definition at line 12 of file dataconvertergenerator.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classDataConverterGenerator_a64845e3ce285461b22eabb32af5899ff}{\index{Data\-Converter\-Generator@{Data\-Converter\-Generator}!function\-To\-String@{function\-To\-String}}
+\index{function\-To\-String@{function\-To\-String}!DataConverterGenerator@{Data\-Converter\-Generator}}
+\subsubsection[{function\-To\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Data\-Converter\-Generator\-::function\-To\-String (
+\begin{DoxyParamCaption}
+\item[{int}]{converter\-Index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classDataConverterGenerator_a64845e3ce285461b22eabb32af5899ff}
+Returns the string containing the code of the converter function. One can add new functions to this method in order to expand the functionality of the converter, but try to document what kind of objects should the mux result have. Example\-: the function deg\-\_\-to\-\_\-rad expects a mutex containing doubles. 
+\begin{DoxyParams}{Parameters}
+{\em converter\-Index} & identifier in the array of functions of this particular hub \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+std\-::string line(s) of code that performs the data conversion 
+\end{DoxyReturn}
+
+
+Definition at line 65 of file dataconvertergenerator.\-cpp.
+
+\hypertarget{classDataConverterGenerator_a1c3df6e22d230512a9091184f315b9ef}{\index{Data\-Converter\-Generator@{Data\-Converter\-Generator}!generate\-Code@{generate\-Code}}
+\index{generate\-Code@{generate\-Code}!DataConverterGenerator@{Data\-Converter\-Generator}}
+\subsubsection[{generate\-Code}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Data\-Converter\-Generator\-::generate\-Code (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classDataConverterGenerator_a1c3df6e22d230512a9091184f315b9ef}
+Method that implements the code generation \begin{DoxyReturn}{Returns}
+String that contains the code 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classYarpCodeGenerator_ad4247b4dad2a694c3799d5a6968faa41}{Yarp\-Code\-Generator}.
+
+
+
+Definition at line 44 of file dataconvertergenerator.\-cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classDataConverterGenerator_a44c9695737d8f682c98f7310351dd74e}{\index{Data\-Converter\-Generator@{Data\-Converter\-Generator}!function\-\_\-@{function\-\_\-}}
+\index{function\-\_\-@{function\-\_\-}!DataConverterGenerator@{Data\-Converter\-Generator}}
+\subsubsection[{function\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$std\-::string$>$ Data\-Converter\-Generator\-::function\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classDataConverterGenerator_a44c9695737d8f682c98f7310351dd74e}
+converter function name 
+
+Definition at line 31 of file dataconvertergenerator.\-hpp.
+
+\hypertarget{classDataConverterGenerator_aad0f91e34facb40b7540ab39a0f974bd}{\index{Data\-Converter\-Generator@{Data\-Converter\-Generator}!verbose\-\_\-@{verbose\-\_\-}}
+\index{verbose\-\_\-@{verbose\-\_\-}!DataConverterGenerator@{Data\-Converter\-Generator}}
+\subsubsection[{verbose\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$bool$>$ Data\-Converter\-Generator\-::verbose\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classDataConverterGenerator_aad0f91e34facb40b7540ab39a0f974bd}
+Verbose flag 
+
+Definition at line 32 of file dataconvertergenerator.\-hpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+dataconvertergenerator.\-hpp\item 
+dataconvertergenerator.\-cpp\end{DoxyCompactItemize}

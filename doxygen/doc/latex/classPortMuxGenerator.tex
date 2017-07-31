@@ -1,0 +1,287 @@
+\hypertarget{classPortMuxGenerator}{\section{Port\-Mux\-Generator Class Reference}
+\label{classPortMuxGenerator}\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}}
+}
+
+
+{\ttfamily \#include $<$portmuxgenerator.\-hpp$>$}
+
+Inheritance diagram for Port\-Mux\-Generator\-:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classPortMuxGenerator}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classPortMuxGenerator_a88f5396d5f7564ad04d74d0184ab6e83}{Port\-Mux\-Generator} (int num\-Muxes, std\-::string output\-Name, bool to\-Ros, std\-::string \&output\-\_\-port\-\_\-name\-\_\-, std\-::string \&ros\-\_\-message\-\_\-name, bool from\-Ros)
+\item 
+\hyperlink{classPortMuxGenerator_afb0616d1f35b218b08f9482a30322d32}{$\sim$\-Port\-Mux\-Generator} ()
+\item 
+\hypertarget{classPortMuxGenerator_ade9b337018f7e2794efb4ec69f790af1}{int {\bfseries get\-Num\-Muxes} ()}\label{classPortMuxGenerator_ade9b337018f7e2794efb4ec69f790af1}
+
+\item 
+\hypertarget{classPortMuxGenerator_aa92143f0290965c23e1f727ad0aea5e1}{std\-::string {\bfseries get\-Output\-Name} ()}\label{classPortMuxGenerator_aa92143f0290965c23e1f727ad0aea5e1}
+
+\item 
+\hypertarget{classPortMuxGenerator_a6dc487c1749d7af1e22a0f738dab9705}{std\-::string {\bfseries get\-Ros\-Message\-Name} ()}\label{classPortMuxGenerator_a6dc487c1749d7af1e22a0f738dab9705}
+
+\item 
+\hypertarget{classPortMuxGenerator_a1ba37b470422d906d9aa287524548fd5}{bool {\bfseries get\-To\-Ros} ()}\label{classPortMuxGenerator_a1ba37b470422d906d9aa287524548fd5}
+
+\item 
+\hypertarget{classPortMuxGenerator_a150ec5e8d2b45896a22c37e967a5bdc9}{bool {\bfseries get\-From\-Ros} ()}\label{classPortMuxGenerator_a150ec5e8d2b45896a22c37e967a5bdc9}
+
+\item 
+\hypertarget{classPortMuxGenerator_a432c713e00d15a0f330c2811887ca8ff}{std\-::vector$<$ int $>$ {\bfseries get\-Num\-Ports} ()}\label{classPortMuxGenerator_a432c713e00d15a0f330c2811887ca8ff}
+
+\item 
+\hypertarget{classPortMuxGenerator_aa1c438d531d3e3418f135d6c7041279d}{std\-::vector$<$ std\-::string $>$ {\bfseries get\-Ports} ()}\label{classPortMuxGenerator_aa1c438d531d3e3418f135d6c7041279d}
+
+\item 
+\hypertarget{classPortMuxGenerator_a956196e2654ec5e7958a9cb98bde7a9b}{void {\bfseries add\-Mux\-Num\-Ports} (int num\-Ports)}\label{classPortMuxGenerator_a956196e2654ec5e7958a9cb98bde7a9b}
+
+\item 
+void \hyperlink{classPortMuxGenerator_ac1899aadf7ded799355b58efe03f4ce2}{add\-Mux\-Ports} (std\-::string ports)
+\item 
+int \hyperlink{classPortMuxGenerator_a8abf12f10f752f2919e34fab9855770a}{get\-Mux\-Num\-Ports} (int mux\-Index)
+\item 
+std\-::string \hyperlink{classPortMuxGenerator_a17cd5018bbe6c9bc5e2ceca94375a1af}{get\-Mux\-Ports} (int mux\-Index)
+\item 
+std\-::string \hyperlink{classPortMuxGenerator_a0f740d798c16c0dee5de7b6fbace3c53}{generate\-Code} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::string \hyperlink{classPortMuxGenerator_a3fdfcabf997e4f8d89a42776c0a1c2bc}{extract\-Port\-From\-String} (int mux\-Index, int port\-Index)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{classPortMuxGenerator_a48cec4ed3c40d0fb987a85dbcb2f02ac}{num\-Muxes\-\_\-}
+\item 
+std\-::string \hyperlink{classPortMuxGenerator_a6c459791ee05d68f48e087b4d3cedc68}{output\-Name\-\_\-}
+\item 
+std\-::string \hyperlink{classPortMuxGenerator_a78f4039de899ad9af05bb7d72cf310b7}{ros\-Message\-Name\-\_\-}
+\item 
+bool \hyperlink{classPortMuxGenerator_ada967c8c94e76a6b73598e77b039086b}{to\-Ros\-\_\-}
+\item 
+bool \hyperlink{classPortMuxGenerator_ab3876f874fe7230a5585d203cda2ff3b}{from\-Ros\-\_\-}
+\item 
+std\-::vector$<$ int $>$ \hyperlink{classPortMuxGenerator_addec6f43a703f42fe99a3fc8f877dd1d}{num\-Ports\-\_\-}
+\item 
+std\-::vector$<$ std\-::string $>$ \hyperlink{classPortMuxGenerator_a05ea2374bbae5e1c1bb069a793a3685e}{ports\-\_\-}
+\item 
+std\-::string \hyperlink{classPortMuxGenerator_a8a342f9a1ea4fea5be14d05f0ff4b251}{output\-\_\-port\-\_\-name}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class that generates the code for connecting and reading the values from the input Y\-A\-R\-P ports/\-R\-O\-S topics 
+
+Definition at line 8 of file portmuxgenerator.\-hpp.
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{classPortMuxGenerator_a88f5396d5f7564ad04d74d0184ab6e83}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!Port\-Mux\-Generator@{Port\-Mux\-Generator}}
+\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{Port\-Mux\-Generator}]{\setlength{\rightskip}{0pt plus 5cm}Port\-Mux\-Generator\-::\-Port\-Mux\-Generator (
+\begin{DoxyParamCaption}
+\item[{int}]{num\-Muxes, }
+\item[{std\-::string}]{output\-Name, }
+\item[{bool}]{to\-Ros, }
+\item[{std\-::string \&}]{output\-\_\-port\-\_\-name\-\_\-, }
+\item[{std\-::string \&}]{ros\-\_\-message\-\_\-name, }
+\item[{bool}]{from\-Ros}
+\end{DoxyParamCaption}
+)}}\label{classPortMuxGenerator_a88f5396d5f7564ad04d74d0184ab6e83}
+Constructor 
+\begin{DoxyParams}{Parameters}
+{\em num\-Muxes} & Number of hubs \\
+\hline
+{\em output\-Name} & Y\-A\-R\-P port/\-R\-O\-S topic where the output will be send \\
+\hline
+{\em to\-Ros} & Boolean flag to know the type of output (R\-O\-S message or Y\-A\-R\-P Bottle) \\
+\hline
+{\em output\-\_\-port\-\_\-name\-\_\-} & Folder name where the code will be copied \\
+\hline
+{\em ros\-\_\-message\-\_\-name} & When writing to a R\-O\-S topic, this is the R\-O\-S message name \\
+\hline
+{\em from\-Ros} & Boolean flag to know the type of inputs (R\-O\-S message or Y\-A\-R\-P Bottle) \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 9 of file portmuxgenerator.\-cpp.
+
+\hypertarget{classPortMuxGenerator_afb0616d1f35b218b08f9482a30322d32}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!$\sim$\-Port\-Mux\-Generator@{$\sim$\-Port\-Mux\-Generator}}
+\index{$\sim$\-Port\-Mux\-Generator@{$\sim$\-Port\-Mux\-Generator}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{$\sim$\-Port\-Mux\-Generator}]{\setlength{\rightskip}{0pt plus 5cm}Port\-Mux\-Generator\-::$\sim$\-Port\-Mux\-Generator (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classPortMuxGenerator_afb0616d1f35b218b08f9482a30322d32}
+Destructor 
+
+Definition at line 19 of file portmuxgenerator.\-cpp.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classPortMuxGenerator_ac1899aadf7ded799355b58efe03f4ce2}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!add\-Mux\-Ports@{add\-Mux\-Ports}}
+\index{add\-Mux\-Ports@{add\-Mux\-Ports}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{add\-Mux\-Ports}]{\setlength{\rightskip}{0pt plus 5cm}void Port\-Mux\-Generator\-::add\-Mux\-Ports (
+\begin{DoxyParamCaption}
+\item[{std\-::string}]{ports}
+\end{DoxyParamCaption}
+)}}\label{classPortMuxGenerator_ac1899aadf7ded799355b58efe03f4ce2}
+Adds the ports/topics string of a hub 
+\begin{DoxyParams}{Parameters}
+{\em ports} & String with comma separated ports/topics \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 52 of file portmuxgenerator.\-cpp.
+
+\hypertarget{classPortMuxGenerator_a3fdfcabf997e4f8d89a42776c0a1c2bc}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!extract\-Port\-From\-String@{extract\-Port\-From\-String}}
+\index{extract\-Port\-From\-String@{extract\-Port\-From\-String}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{extract\-Port\-From\-String}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Port\-Mux\-Generator\-::extract\-Port\-From\-String (
+\begin{DoxyParamCaption}
+\item[{int}]{mux\-Index, }
+\item[{int}]{port\-Index}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_a3fdfcabf997e4f8d89a42776c0a1c2bc}
+Retrieve port/topic name from wrap of ports names. Requires names separated by commas and no spaces between them. 
+\begin{DoxyParams}{Parameters}
+{\em mux\-Index} & Hub's index in the vector of Hubs \\
+\hline
+{\em port\-Index} & Port's index in the ports string \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 182 of file portmuxgenerator.\-cpp.
+
+\hypertarget{classPortMuxGenerator_a0f740d798c16c0dee5de7b6fbace3c53}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!generate\-Code@{generate\-Code}}
+\index{generate\-Code@{generate\-Code}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{generate\-Code}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Port\-Mux\-Generator\-::generate\-Code (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classPortMuxGenerator_a0f740d798c16c0dee5de7b6fbace3c53}
+Generates the code that connects to all the Y\-A\-R\-P ports/\-R\-O\-S topics \begin{DoxyReturn}{Returns}
+String that contains the code for Y\-A\-R\-P port creation, and connection to the input Y\-A\-R\-P ports/\-R\-O\-S topics 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{classYarpCodeGenerator_ad4247b4dad2a694c3799d5a6968faa41}{Yarp\-Code\-Generator}.
+
+
+
+Definition at line 64 of file portmuxgenerator.\-cpp.
+
+\hypertarget{classPortMuxGenerator_a8abf12f10f752f2919e34fab9855770a}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!get\-Mux\-Num\-Ports@{get\-Mux\-Num\-Ports}}
+\index{get\-Mux\-Num\-Ports@{get\-Mux\-Num\-Ports}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{get\-Mux\-Num\-Ports}]{\setlength{\rightskip}{0pt plus 5cm}int Port\-Mux\-Generator\-::get\-Mux\-Num\-Ports (
+\begin{DoxyParamCaption}
+\item[{int}]{mux\-Index}
+\end{DoxyParamCaption}
+)}}\label{classPortMuxGenerator_a8abf12f10f752f2919e34fab9855770a}
+Returns the number of ports read by the hub at mux\-Index in the hub vector 
+\begin{DoxyParams}{Parameters}
+{\em mux\-Index} & Hub index in the Hub vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Number of ports/topics read by the hub 
+\end{DoxyReturn}
+
+
+Definition at line 56 of file portmuxgenerator.\-cpp.
+
+\hypertarget{classPortMuxGenerator_a17cd5018bbe6c9bc5e2ceca94375a1af}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!get\-Mux\-Ports@{get\-Mux\-Ports}}
+\index{get\-Mux\-Ports@{get\-Mux\-Ports}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{get\-Mux\-Ports}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Port\-Mux\-Generator\-::get\-Mux\-Ports (
+\begin{DoxyParamCaption}
+\item[{int}]{mux\-Index}
+\end{DoxyParamCaption}
+)}}\label{classPortMuxGenerator_a17cd5018bbe6c9bc5e2ceca94375a1af}
+Returns the string that contains all the Y\-A\-R\-P ports/\-R\-O\-S topics for the hub mux\-Index 
+\begin{DoxyParams}{Parameters}
+{\em mux\-Index} & Hub index in the Hub vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+String that contains the Y\-A\-R\-P ports/\-R\-O\-S topics separated by commas 
+\end{DoxyReturn}
+
+
+Definition at line 60 of file portmuxgenerator.\-cpp.
+
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classPortMuxGenerator_ab3876f874fe7230a5585d203cda2ff3b}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!from\-Ros\-\_\-@{from\-Ros\-\_\-}}
+\index{from\-Ros\-\_\-@{from\-Ros\-\_\-}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{from\-Ros\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool Port\-Mux\-Generator\-::from\-Ros\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_ab3876f874fe7230a5585d203cda2ff3b}
+Boolean flag to know the type of inputs (R\-O\-S message or Y\-A\-R\-P Bottle) 
+
+Definition at line 71 of file portmuxgenerator.\-hpp.
+
+\hypertarget{classPortMuxGenerator_a48cec4ed3c40d0fb987a85dbcb2f02ac}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!num\-Muxes\-\_\-@{num\-Muxes\-\_\-}}
+\index{num\-Muxes\-\_\-@{num\-Muxes\-\_\-}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{num\-Muxes\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}int Port\-Mux\-Generator\-::num\-Muxes\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_a48cec4ed3c40d0fb987a85dbcb2f02ac}
+Number of hubs 
+
+Definition at line 67 of file portmuxgenerator.\-hpp.
+
+\hypertarget{classPortMuxGenerator_addec6f43a703f42fe99a3fc8f877dd1d}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!num\-Ports\-\_\-@{num\-Ports\-\_\-}}
+\index{num\-Ports\-\_\-@{num\-Ports\-\_\-}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{num\-Ports\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$int$>$ Port\-Mux\-Generator\-::num\-Ports\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_addec6f43a703f42fe99a3fc8f877dd1d}
+Vector that contains the number of ports for all the hubs 
+
+Definition at line 72 of file portmuxgenerator.\-hpp.
+
+\hypertarget{classPortMuxGenerator_a8a342f9a1ea4fea5be14d05f0ff4b251}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!output\-\_\-port\-\_\-name@{output\-\_\-port\-\_\-name}}
+\index{output\-\_\-port\-\_\-name@{output\-\_\-port\-\_\-name}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{output\-\_\-port\-\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Port\-Mux\-Generator\-::output\-\_\-port\-\_\-name\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_a8a342f9a1ea4fea5be14d05f0ff4b251}
+Folder name where the code will be copied 
+
+Definition at line 74 of file portmuxgenerator.\-hpp.
+
+\hypertarget{classPortMuxGenerator_a6c459791ee05d68f48e087b4d3cedc68}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!output\-Name\-\_\-@{output\-Name\-\_\-}}
+\index{output\-Name\-\_\-@{output\-Name\-\_\-}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{output\-Name\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Port\-Mux\-Generator\-::output\-Name\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_a6c459791ee05d68f48e087b4d3cedc68}
+Y\-A\-R\-P port/\-R\-O\-S topic where the output will be send 
+
+Definition at line 68 of file portmuxgenerator.\-hpp.
+
+\hypertarget{classPortMuxGenerator_a05ea2374bbae5e1c1bb069a793a3685e}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!ports\-\_\-@{ports\-\_\-}}
+\index{ports\-\_\-@{ports\-\_\-}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{ports\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$std\-::string$>$ Port\-Mux\-Generator\-::ports\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_a05ea2374bbae5e1c1bb069a793a3685e}
+Vector that contains the inputs (ports/topics) for all the hubs 
+
+Definition at line 73 of file portmuxgenerator.\-hpp.
+
+\hypertarget{classPortMuxGenerator_a78f4039de899ad9af05bb7d72cf310b7}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!ros\-Message\-Name\-\_\-@{ros\-Message\-Name\-\_\-}}
+\index{ros\-Message\-Name\-\_\-@{ros\-Message\-Name\-\_\-}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{ros\-Message\-Name\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}std\-::string Port\-Mux\-Generator\-::ros\-Message\-Name\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_a78f4039de899ad9af05bb7d72cf310b7}
+When writing to a R\-O\-S topic, this is the R\-O\-S message name 
+
+Definition at line 69 of file portmuxgenerator.\-hpp.
+
+\hypertarget{classPortMuxGenerator_ada967c8c94e76a6b73598e77b039086b}{\index{Port\-Mux\-Generator@{Port\-Mux\-Generator}!to\-Ros\-\_\-@{to\-Ros\-\_\-}}
+\index{to\-Ros\-\_\-@{to\-Ros\-\_\-}!PortMuxGenerator@{Port\-Mux\-Generator}}
+\subsubsection[{to\-Ros\-\_\-}]{\setlength{\rightskip}{0pt plus 5cm}bool Port\-Mux\-Generator\-::to\-Ros\-\_\-\hspace{0.3cm}{\ttfamily [private]}}}\label{classPortMuxGenerator_ada967c8c94e76a6b73598e77b039086b}
+Boolean flag to know the type of output (R\-O\-S message or Y\-A\-R\-P Bottle) 
+
+Definition at line 70 of file portmuxgenerator.\-hpp.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+portmuxgenerator.\-hpp\item 
+portmuxgenerator.\-cpp\end{DoxyCompactItemize}

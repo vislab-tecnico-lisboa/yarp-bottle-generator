@@ -1,0 +1,88 @@
+\hypertarget{main_8cpp}{\section{main.\-cpp File Reference}
+\label{main_8cpp}\index{main.\-cpp@{main.\-cpp}}
+}
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$fstream$>$}\\*
+{\ttfamily \#include \char`\"{}commonbeginninggenerator.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}portmuxgenerator.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}dataconvertergenerator.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}bottlecreatorgenerator.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}cmakefilegenerator.\-hpp\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}commonendgenerator.\-hpp\char`\"{}}\\*
+{\ttfamily \#include $<$boost/property\-\_\-tree/ptree.\-hpp$>$}\\*
+{\ttfamily \#include $<$boost/property\-\_\-tree/ini\-\_\-parser.\-hpp$>$}\\*
+{\ttfamily \#include $<$boost/lexical\-\_\-cast.\-hpp$>$}\\*
+{\ttfamily \#include $<$boost/filesystem.\-hpp$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{main_8cpp_aa068cf952519028e73fc42cadc625ede}{handle\-Message\-Child} (\hyperlink{classChildGenerator}{Child\-Generator} \&child\-Gen, boost\-::property\-\_\-tree\-::ptree \&pt, std\-::string message\-Name, bool to\-Ros)
+\item 
+void \hyperlink{main_8cpp_aa668161c343a125980df234982c54f90}{handle\-Message\-Fields} (\hyperlink{classBottleCreatorGenerator}{Bottle\-Creator\-Generator} \&bottle\-Creator\-Gen, boost\-::property\-\_\-tree\-::ptree \&pt, bool to\-Ros)
+\item 
+void \hyperlink{main_8cpp_ac1b66fe77173de9e5e8542b2823d6071}{info} ()
+\item 
+\hypertarget{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{int {\bfseries main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})}\label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\hypertarget{main_8cpp_aa068cf952519028e73fc42cadc625ede}{\index{main.\-cpp@{main.\-cpp}!handle\-Message\-Child@{handle\-Message\-Child}}
+\index{handle\-Message\-Child@{handle\-Message\-Child}!main.cpp@{main.\-cpp}}
+\subsubsection[{handle\-Message\-Child}]{\setlength{\rightskip}{0pt plus 5cm}void handle\-Message\-Child (
+\begin{DoxyParamCaption}
+\item[{{\bf Child\-Generator} \&}]{child\-Gen, }
+\item[{boost\-::property\-\_\-tree\-::ptree \&}]{pt, }
+\item[{std\-::string}]{message\-Name, }
+\item[{bool}]{to\-Ros}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_aa068cf952519028e73fc42cadc625ede}
+Initialize the child objects (tree leaves) from the configuration file 
+\begin{DoxyParams}{Parameters}
+{\em child\-Gen} & \hyperlink{classChildGenerator}{Child\-Generator} object reference to be initialized from the configuration file \\
+\hline
+{\em pt} & boost\-::property\-\_\-tree that contains the configuration file data \\
+\hline
+{\em message\-Name} & R\-O\-S message name, used when the boolean to\-Ros is true \\
+\hline
+{\em to\-Ros} & Boolean flag to know the type of output \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 37 of file main.\-cpp.
+
+\hypertarget{main_8cpp_aa668161c343a125980df234982c54f90}{\index{main.\-cpp@{main.\-cpp}!handle\-Message\-Fields@{handle\-Message\-Fields}}
+\index{handle\-Message\-Fields@{handle\-Message\-Fields}!main.cpp@{main.\-cpp}}
+\subsubsection[{handle\-Message\-Fields}]{\setlength{\rightskip}{0pt plus 5cm}void handle\-Message\-Fields (
+\begin{DoxyParamCaption}
+\item[{{\bf Bottle\-Creator\-Generator} \&}]{bottle\-Creator\-Gen, }
+\item[{boost\-::property\-\_\-tree\-::ptree \&}]{pt, }
+\item[{bool}]{to\-Ros}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_aa668161c343a125980df234982c54f90}
+Initialize the objects at the top of the hierarchy (members of the root) from the configuration file 
+\begin{DoxyParams}{Parameters}
+{\em bottle\-Creator\-Gen} & \hyperlink{classBottleCreatorGenerator}{Bottle\-Creator\-Generator} object reference to be initialized from the configuration file \\
+\hline
+{\em pt} & boost\-::property\-\_\-tree that contains the configuration file data \\
+\hline
+{\em to\-Ros} & Boolean flag to know the type of output \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 77 of file main.\-cpp.
+
+\hypertarget{main_8cpp_ac1b66fe77173de9e5e8542b2823d6071}{\index{main.\-cpp@{main.\-cpp}!info@{info}}
+\index{info@{info}!main.cpp@{main.\-cpp}}
+\subsubsection[{info}]{\setlength{\rightskip}{0pt plus 5cm}void info (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{main_8cpp_ac1b66fe77173de9e5e8542b2823d6071}
+Function that prints out the help 
+
+Definition at line 114 of file main.\-cpp.
+
