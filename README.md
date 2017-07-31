@@ -2,6 +2,10 @@
 
 Although this repository is integrated within [VisLab](https://github.com/vislab-tecnico-lisboa)'s projects, it holds the result of my ([Miguel Aragão](https://github.com/mikearagao)) master thesis.
 
+## Online documentation
+
+Doxygen pages are available here: [http://vislab-tecnico-lisboa.github.io/yarp-bottle-generator](http://vislab-tecnico-lisboa.github.io/yarp-bottle-generator)
+
 ## Brief description
 
 The main goal of the yarp-bottle-generator is for it to be able to generate code that gets data from several sources (YARP ports or ROS topics) and builds a bottle to be sent to some specific ROS topic or YARP port.
